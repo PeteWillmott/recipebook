@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pete's Cookbook</title>
+    <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/logo30.png">
+</head>
+
+<body>
+    <nav class="navbar  navbar-default  container-fluid  cover">
+     
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#recipe-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}"><img src="../static/images/logo30.png"></img></a>
+        </div>
+        
+        <div class="collapse  navbar-collapse" id="recipe-navbar-collapse">
+          <ul class="nav  navbar-nav">
+            <li><a href="{{ url_for('browse') }}" class="nav-link">Browse</a></li>
+            
+            {% if not g.user %}
+            
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                
+            {% endif%}
+            <li><a href="{{ url_for('display_favourites') }}" class="nav-link">Favourites</a></li>
+            <li><a href="{{ url_for('display_notes') }}" class="nav-link">Notes</a></li>
+            <li><a href="{{ url_for('add_recipe') }}" class="nav-link">Add</a></li>
+            <li><a href="{{ url_for('search') }}"><i class="fas fa-search"></i></a></li>
+            
+            {% if session['type'] == "admin" %}
+            
+                <li><a href="{{ url_for('admin') }}">Admin</a></li>
+            
+            {% endif %}
+            
+          </ul>
+        </div>
+        
+    </nav>
+    
+    <section class="flash-messages  container-fluid">
+        <div class="row">
+            <div class="col-xs-12  cover">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <main class="container-fluid  cover">
+        
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="page-title  gold  text-center">Pete's Cookbook</h1>
+            </div>
+        </div>
+        
+        {% block content %}
+        
+        {% endblock %}
+    
+        <section id="login">
+            <div class="row  page">
+                
+            {% if g.user %}
+            
+            <div class="col-xs-offset-10  col-xs-2">
+                <form method="POST" action="/logout">
+                    <input type="submit" value="Log Out" />
+                </form>
+            </div>
+            
+            {% else %}
+            
+            <form method="POST" action="/login">
+                <div class="col-xs-5">
+                    <input type="email" name="email" placeholder="Email" />
+                </div>
+                <div class="col-xs-5">
+                    <input type="password" class="pwrd" name="password" placeholder="Password" />
+                    <span onclick="hideShowPassword()"><i class="far fa-eye"></i></span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="submit" value="Log In" />
+                </div>
+            </form>
+            
+            {% endif %}
+            
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="container-fluid  cover">
+            <div class="footer-links  row">
+                <div class="col-xs-3">
+                    <a href="" target="_blank" title="Twitter">
+                        <span class="center  twitter">
+                            <i class="social-link  fab  fa-twitter-square"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="" target="_blank" title="Facebook">
+                        <span class="center  facebook">
+                            <i class="social-link  fab  fa-facebook-square"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="" target="_blank" title="Youtube">
+                        <span class="center  youtube">
+                            <i class="social-link  fab  fa-youtube-square"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="" title="Email">
+                        <span class="center  email">
+                            <i class="social-link  fas  fa-envelope-square"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    
+    
+    <script type="text/javascript" src="../static/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" data-auto-replace-svg="nest"></script>
+    <script type="text/javascript" src="../static/js/index.js"></script>
+    <script type="text/javascript">
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    
+    
+    
+</body>
+
+</html>

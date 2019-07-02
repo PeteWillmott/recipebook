@@ -1,0 +1,69 @@
+/* ----- TITLES, HEADINGS AND TEXT ---------------------------- */
+
+@import url('https://fonts.googleapis.com/css?family=Bad+Script|Raleway');
+
+%title-font {
+    font-family: 'Bad Script', cursive;
+}
+
+%body-font {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, label, button {
+    @extend %body-font;
+    text-transform: capitalize;
+}
+
+.page-title {
+    @extend %title-font;
+}
+
+.recipe-title {
+    @extend %body-font;
+    font-size: 40px;
+    text-transform: capitalize;
+}
+
+.recipe-text {
+    @extend %body-font;
+    font-size: 20px;
+    
+}
+
+.gold {
+    color: $gold;
+}
+
+span, p {
+   @extend %body-font;
+}
+
+p {
+    margin-top: 10px;
+}
+
+::placeholder {
+  @extend %body-font;
+  color: $ink;
+}
+
+.title-case {
+    text-transform: capitalize;
+}
+
+.icon {
+    font-size: 10px;
+}
+
+.sentence-case {
+  text-transform: lowercase;
+  
+	&:first-letter {
+		text-transform: capitalize;
+	}
+}
+
+.inline {
+    display: inline;
+}

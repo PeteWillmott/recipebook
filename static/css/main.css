@@ -1,0 +1,336 @@
+/* ----- COLOURS ----------------------- */
+/* Coolors Exported Palette - coolors.co/aa5922-a56749-dac8b8-592f10-8c461d */
+/* RGB - LEATHER 
+$color1: rgba(170, 89, 34, 1);
+$color2: rgba(165, 103, 73, 1);
+$color3: rgba(218, 200, 184, 1);
+$color4: rgba(89, 47, 16, 1);
+$color5: rgba(140, 70, 29, 1);
+*/
+/* Coolors Exported Palette - coolors.co/eaeacb-dfd4a3-dac8b8-592f10-8c461d */
+/* RGB PARCHMENT 
+$color1: rgba(234, 234, 203, 1);
+$color2: rgba(223, 212, 163, 1);
+$color3: rgba(218, 200, 184, 1);
+$color4: rgba(89, 47, 16, 1);
+$color5: rgba(140, 70, 29, 1);
+*/
+/* Coolors Exported Palette - coolors.co/dbd6d0-8c837a-352e26-a78057-bcb2a8 */
+/* RGB INK & PAPER 
+$color1: rgba(219, 214, 208, 1);
+$color2: rgba(140, 131, 122, 1);
+$color3: rgba(53, 46, 38, 1);
+$color4: rgba(167, 128, 87, 1);
+$color5: rgba(188, 178, 168, 1);
+*/
+@import url("https://fonts.googleapis.com/css?family=Bad+Script|Raleway");
+.cover {
+  background-color: #aa5922;
+}
+
+.page {
+  background-color: #ffffcc;
+  color: #352e26;
+}
+
+/*
+* {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}
+*/
+/* ----- BUTTONS -------------------- */
+.browse-button {
+  color: #352e26;
+  background-color: #ffffcc;
+  border-style: none;
+}
+
+.browse-button:hover {
+  background-color: #ffff99;
+}
+
+a {
+  text-decoration: none;
+  font-family: Raleway, sans-serif;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: #352e26;
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.twitter {
+  background-color: #1da1f2;
+}
+
+.youtube {
+  background-color: #ff0000;
+}
+
+.social-link {
+  color: #ffffff;
+}
+
+.email {
+  background-color: gold;
+}
+
+.icon-link-align {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* ----- SEMANTIC HTML ELEMENTS --------------- */
+.top-nav {
+  width: 95vw;
+}
+
+.footer-links {
+  width: 95vw;
+}
+
+/* ----- SPACING AND ALIGNMENT --------------- */
+.center {
+  display: block;
+  text-align: center;
+}
+
+.tab {
+  border: 1px solid #bbae9f;
+}
+
+.padding-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ----- TITLES, HEADINGS AND TEXT ---------------------------- */
+.page-title {
+  font-family: 'Bad Script', cursive;
+}
+
+.browse-button, h1, h2, h3, h4, h5, h6, label, button, .recipe-title, .recipe-text, span, p, ::-webkit-input-placeholder, input[type=submit] {
+  font-family: 'Raleway', sans-serif;
+}
+
+.browse-button, h1, h2, h3, h4, h5, h6, label, button, .recipe-title, .recipe-text, span, p, :-ms-input-placeholder, input[type=submit] {
+  font-family: 'Raleway', sans-serif;
+}
+
+.browse-button, h1, h2, h3, h4, h5, h6, label, button, .recipe-title, .recipe-text, span, p, ::-ms-input-placeholder, input[type=submit] {
+  font-family: 'Raleway', sans-serif;
+}
+
+.browse-button, h1, h2, h3, h4, h5, h6, label, button, .recipe-title, .recipe-text, span, p, ::placeholder, input[type=submit] {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, label, button {
+  text-transform: capitalize;
+}
+
+.recipe-title {
+  font-size: 40px;
+  text-transform: capitalize;
+}
+
+.recipe-text {
+  font-size: 20px;
+}
+
+.gold {
+  color: gold;
+}
+
+p {
+  margin-top: 10px;
+}
+
+::-webkit-input-placeholder {
+  color: #352e26;
+}
+
+:-ms-input-placeholder {
+  color: #352e26;
+}
+
+::-ms-input-placeholder {
+  color: #352e26;
+}
+
+::placeholder {
+  color: #352e26;
+}
+
+.title-case {
+  text-transform: capitalize;
+}
+
+.icon {
+  font-size: 10px;
+}
+
+.sentence-case {
+  text-transform: lowercase;
+}
+
+.sentence-case:first-letter {
+  text-transform: capitalize;
+}
+
+.inline {
+  display: inline;
+}
+
+/* ----- FORM ELEMENTS --------------- */
+.slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 3px;
+  background: white;
+  outline: none;
+  -webkit-transition: .2s;
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+  opacity: 0.7;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: gold;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: gold;
+  cursor: pointer;
+}
+
+label {
+  color: #352e26;
+  margin-bottom: 0px;
+}
+
+label[for="allergens"] {
+  color: #cc3300 !important;
+}
+
+input[type=submit] {
+  color: #352e26;
+  background-color: #ffffcc;
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 1px solid #352e26;
+  background-color: #ffffcc;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border: none;
+}
+
+.navbar-default .navbar-brand {
+  color: #352e26;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: gold;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+  background-color: #d56f2b;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: gold;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #352e26;
+}
+
+.navbar-collapse {
+  border: none;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border: none;
+}
+
+/*----- ADMIN AREA ACCORDIAN ----------------------------*/
+.accordian-authorisation {
+  display: block;
+}
+
+.accordian-users {
+  display: none;
+}
+
+.accordian-recipes {
+  display: none;
+}
+
+.alpha-fade {
+  opacity: 0.5;
+}
+
+.top-voted {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.cards {
+  position: relative;
+  min-height: 300px;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.card {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  padding: 40px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #ffffcc;
+  color: #352e26;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.top {
+  opacity: 1;
+  z-index: 2;
+}
+/*# sourceMappingURL=main.css.map */

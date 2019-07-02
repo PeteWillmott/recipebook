@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="row  page">
+        <div class="col-xs-8">
+            <h2 class="inline">{{ recipe.recipe | title }}</h2>
+            
+            {% if recipe.votes %}
+            
+                <p>Likes: {{ recipe.votes }}</p>
+            
+            {% endif %}
+            {% if g.user %}
+        
+                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"><i class="far fa-edit  icon-link-align  pull-right"></i></a>
+                
+            {% endif %}
+            
+            </div>
+                
+                {% if g.user and not g.admin %}
+        
+            <div class="col-xs-4">
+                <form method="POST" action="/add_favourite">
+                    <i class="far fa-star"></i>
+                    <input type="hidden" name="recipeID" value="{{ recipe._id }}">
+                    <input type="submit" value="Favourite" />
+                </form>
+            
+                
+                <form method="POST" action="/vote">
+                    <i class="far fa-thumbs-up"></i>
+                    <input type="hidden" name="recipeID" value="{{ recipe._id }}">
+                    <input type="hidden" name="votes" value="{{ recipe.votes }}">
+                    <input type="submit" value="Like" />
+                </form>
+            
+            <a href="{{ url_for('add_note', recipe_id=recipe._id) }}"><i class="far fa-sticky-note  icon-link-align  pull-right"></i></a>
+        </div>
+        {% endif %}
+        
+            
+            
+        </div>
+    </div>
+    
+    
+    <div class="row  page">
+        <div class="col-xs-12  col-md-5  col-md-push-7">
+                
+            {% if recipe.img %}
+                
+                <img src="{{ recipe.img }}" class="img-responsive  center-block  top-voted" alt="A picture of {{recipe.recipe | title }}">
+                
+            {% else %}
+            
+                <img src="../static/images/defaultSmall.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-voted">
+                
+            {% endif %}
+                
+        </div>
+    
+        <div class="col-xs-12  col-md-7  col-md-pull-5">
+            <h3>Ingredients</h3>
+                
+                {% for ingredients in recipe.ingredients %}
+                    
+                    <p>{{ ingredients | title }}</p>
+                
+                {% endfor %}
+               
+            </div>
+            
+        
+        
+    </div>
+    
+    {% if g.user %}
+    
+    <div class="row  page">
+        <div class="col-xs-12">
+            
+            {% if user %}
+                <h3>Notes</h3>
+                <p class="sentence-case">  {{ user.notes.content | join }}</p>
+                
+            {% endif %}
+            
+        </div>
+    </div>
+    
+    {% endif %}
+    
+    <div class="row  page">
+        <div class="col-xs-12">
+            <h3>Cooking Instructions</h3>
+            
+            {% for steps in recipe.instructions %}
+            
+                <p class="sentence-case">{{ steps }}</p>
+            
+            {% endfor %}
+            
+        </div>
+    </div>
+    
+    <div class="row  page">
+        <div class="col-xs-12">
+            <p class="text-right">By {{ recipe.username | title }}</p>
+        </div>
+    </div>
+
+{% endblock %}
+

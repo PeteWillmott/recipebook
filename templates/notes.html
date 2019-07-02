@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <h2>Notes</h2>
+    </div>
+</div>
+
+<div class="row  page">
+    
+    {% for note in notes %}
+    
+        <div class="col-xs-12">
+            
+            {% for ids in note.notes.id%}
+        
+                <a href="{{ url_for('recipe', recipe_id=ids) }}">
+                    
+            {% endfor %}
+        
+            <p class="sentence-case">  {{ note.notes.content | join }}</p>
+        </div>
+        
+    {% endfor %}
+
+</div>
+
+{% endblock %}

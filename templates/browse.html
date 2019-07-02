@@ -1,0 +1,92 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="gold">Browse Recipes</h2>
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <ul id="cards" class="cards">
+        
+            {% for recipe in recipes %}
+            
+                {% if loop.index == 1 %}
+                
+                    <li class="card  top">
+                        <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+                            <h3 class="recipe-title">{{ recipe.recipe }}
+                            
+                            {% if g.user %}
+                                {% for votes in user.voted %}
+                                    {% if votes == recipe._id | string %}
+                                        
+                                        <i class="far fa-thumbs-up"></i>
+                                    
+                                    {% endif %}
+                                {% endfor %}
+                                {% for faves in user.favourites%}
+                                    {% if faves == recipe._id | string %}
+                                    
+                                        <i class="fas fa-star"></i>
+                                    
+                                    {% endif %}
+                                {%endfor%}
+                            {% endif %}
+                            
+                            </h3>
+                        </a>
+                        <p class="recipe-text">{{ recipe.summary }}</p>
+                    </li>
+                
+                {% else %}
+                
+                    <li class="card">
+                        <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+                            <h3 class="recipe-title">{{ recipe.recipe }}
+                            
+                            {% if g.user %}
+                                {% for votes in user.voted %}
+                                    {% if votes == recipe._id | string %}
+                                        
+                                        <i class="far fa-thumbs-up"></i>
+                                    
+                                    {% endif %}
+                                {% endfor %}
+                                {% for faves in user.favourites%}
+                                    {% if faves == recipe._id | string %}
+                                    
+                                        <i class="fas fa-star"></i>
+                                    
+                                    {% endif %}
+                                {%endfor%}
+                            {% endif %}
+                            
+                            </h3>
+                        </a>
+                        <p class="recipe-text  sentence-case">{{ recipe.summary }}</p>
+                    </li>
+                
+                {%  endif%}
+            
+            
+            {% endfor %}
+        
+        </ul>
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-6">
+        <button class="browse-button" id="previous">Previous</button>
+    </div>
+    <div class="col-xs-6">
+        <button class="browse-button  pull-right" id="next">Next</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="../static/js/recipeCard.js"></script>
+
+{% endblock %}

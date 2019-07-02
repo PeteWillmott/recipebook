@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!--div class="page"-->
+<form method="POST" action="/addrecipe">
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="recipe">Recipe Name</label>
+        <input type="text" class="form-control" id="recipe" name="recipe" placeholder="Recipe Name">
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="url">Add a picture (Optional)</label>
+        <input type="text" inputmode="url" class="form-control" id="url" name="url" placeholder="URL">
+    </div>
+</div>
+
+
+<div class="row  page">
+    <div class="col-xs-12">
+        
+        {% for type in types %}
+
+            <input type="checkbox" id="type-{{ loop.index }}" name="type-{{ loop.index }}" value="{{ type }}"> {{ type | title }} <br> 
+        
+        {% endfor %}
+        
+     </div>   
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <input type="radio" id="vegan" name="category" value="vegan"> Vegan<br>
+        <input type="radio" id="vegetarian" name="category" value="vegetarian"> Vegetarian
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="prep_time">Preparation time (Hrs, Mins)</label>
+        <input type="number" name="prep_time_hrs"> Hrs
+        <input type="number" name="prep_time_mins" max="59"> Mins
+    </div>
+</div>
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="cook_time">Cooking time (Hrs, Mins)</label>
+        <input type="number" name="cook_time_hrs"> Hrs
+        <input type="number" name="cook_time_mins" max="59"> Mins
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12" id="ingredientContainer" name="ingredient_listing">
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="ingredients">Ingredients (Ingredient, ammount)</label><br>
+        <input type="text" class="form-control  no-submit" id="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
+        <span onclick="addEntry('ingredient', 'ingredientContainer')">
+            <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
+        </span>
+        
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="main_ingredients">Main Ingredients</label><br>
+        <p>Main ingredients are what defines your dish, the ingredients you would enter in a search bar if you were looking for that recipe.</p>
+        <input type="text" class="form-control" id="main_ingredient" name="main_ingredient" placeholder="Main ingredient, eg chicken, basmatti rice">
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="summary">Summary</label><br>
+        <p>Summary, this text will be displayed in the browse menu.</p>
+        <input type="text" class="form-control" id="summary" name="summary" placeholder="Summary">
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="allergens">Allergens</label><br> 
+            
+        {% for allergen in allergens %}
+
+            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen-{{ loop.index }}" value="{{ allergen }}"> {{ allergen | title }} <br> 
+            
+        {% endfor %}
+    
+    </div>
+</div>
+
+
+<div class="row  page">
+    <div class="col-xs-12" id="instructionContainer" name="instruction_listing">
+    </div>
+</div>
+<div class="row  page">
+    <div class="col-xs-12">
+        <label for="instructions">Cooking instructions</label><br>
+        <input type="text" class="form-control  no-submit" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
+    </div>
+</div>
+<div class="row  page">
+    <div class="col-xs-12">
+        <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
+        
+    </div>
+</div>
+
+
+
+<div class="row  page">
+    <div class="col-xs-9">
+        <label for="spicyness">Spicyness</label>
+        <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="spicyness" name="spicyness">
+    </div>
+</div>
+<div class="row  page">
+        <div class="col-xs-3">
+            <p><a href="#" data-toggle="tooltip" title="Not spicy or mild"><strong>0</strong></a></p>
+        </div>
+        <div class="col-xs-3">
+            <p class="text-center"><a href="#" data-toggle="tooltip" title="medium"><i class="fas  fa-pepper-hot  icon"></i></a></p>
+        </div>
+        <div class="col-xs-3">
+            <p class="text-right"><a href="#" data-toggle="tooltip" title="spicy"><i class="fas  fa-pepper-hot  icon"></i> <i class="fas  fa-pepper-hot  icon"></i></a></p>
+        </div>
+    </div>
+
+
+<div class="row  page">
+    <div class="col-xs-9">
+        <label for="difficulty">Difficulty</label>
+        <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="difficulty" name="difficulty">
+    </div>
+</div>
+<div class="row  page">
+    <div class="col-xs-3">
+        <p><a href="#" data-toggle="tooltip" title="easy"><i class="fas  fa-star  icon"></i></a></p>
+    </div>
+    <div class="col-xs-3">
+        <p class="text-center"><a href="#" data-toggle="tooltip" title="medium dificulty"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
+    </div>
+    <div class="col-xs-3">
+        <p class="text-right"><a href="#" data-toggle="tooltip" title="complicated"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <input type="hidden" id="author" name="author" value="{{ session['email'] }}">
+        <input class="submit" type="submit" value="Add recipe">
+    </div>
+</div>
+
+</form>
+
+
+
+{% endblock %}

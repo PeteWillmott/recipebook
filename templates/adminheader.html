@@ -1,0 +1,21 @@
+{% block content %}
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <h2>Admin Page</h2>
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-6  tab">
+        <a href="{{ url_for('recipe_authorisation') }}"><h3>Authorisation</h3></a>
+    </div>
+    <div class="col-xs-3  tab">
+        <a href="{{ url_for('user_authorisation') }}"><h3>Users</h3></a>
+    </div>
+    <div class="col-xs-3  tab">
+        <a href="{{ url_for('recipe_overview') }}"><h3>Recipes</h3></a>
+    </div>
+</div>
+
+{% endblock %}

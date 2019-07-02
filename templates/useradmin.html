@@ -1,0 +1,41 @@
+{% block content %}
+{% for user in users %}
+
+<div class="row  page">
+    <div class="col-xs-8">
+        
+    <h4>{{ user.username }}</h4>
+    <p>{{ user.email }}</p>
+    
+    {% if user.admin %}
+    
+        <p>Admin</p>
+        
+    {% endif %}
+    
+    {% if loop.index < loop.length %}
+    
+        <hr>
+    
+    {% endif %}
+    
+    </div>
+    <div class="col-xs-4">
+        
+    <p>Make Admin</p>
+    <p>Make User</p>
+    <p>Delete</p>
+    
+    {% if loop.index < loop.length %}
+        
+        <hr>
+        
+    {% endif %}
+    
+    </div>
+</div> 
+
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+.navbar {
+    margin-bottom: 0;
+    border: none;
+}
+
+.navbar-default .navbar-brand {
+    color: $ink;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: $gold;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: lighten( $leather, 10% );
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: $gold;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: $ink;
+}
+
+.navbar-collapse {
+    border: none;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: none;
+}

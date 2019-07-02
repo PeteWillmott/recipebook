@@ -1,0 +1,31 @@
+.cards {
+    position: relative;
+    min-height: 300px;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.card {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    padding: 40px;
+    box-sizing: border-box;
+    background: $parchment;
+    color: $ink;
+
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+}
+
+.top {
+    opacity: 1;
+    z-index: 2;
+}

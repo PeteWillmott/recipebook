@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <h2 class="inline">Notes for {{ recipe.recipe | title }}</h2>
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-offset-1  col-xs-10">
+        <form class="form-horizontal" method="POST" action="{{ url_for('add_note', recipe_id=recipe._id) }}">
+            
+            <div class="form-group">
+                
+                {% if user %}
+                
+                    <textarea class="form-control" name="note_content" rows="8">{{ user.notes.content | join }}</textarea>
+                    
+                {% else%}
+                
+                    <textarea class="form-control" name="note_content" rows="8" placeholder="Notes ..."></textarea>
+                        
+                {% endif %}
+                
+                <input type="hidden" name="recipeID" value="{{ recipe._id }}">
+            </div>
+            
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-default">Annotate</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+    
+    
+
+{% endblock %}

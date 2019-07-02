@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <form method="POST" action="/searchresults">
+            <p>What are you in the mood for today? You can choose more than one option.</p>
+    </div>
+    <div class="col-xs-11   col-xs-offset-1  col-sm-5  col-sm-offset-1">
+        <h3>Containing ...</h3>
+            
+            {% for ingredient in ingredients %}
+                
+                    <input type="checkbox" name="ingredient-{{ loop.index }}" value="{{ ingredient }}">{{ ingredient | title }}<br>
+                
+            {% endfor %}
+         
+    </div>
+    <div class="col-xs-11  col-xs-offset-1  col-sm-5  col-sm-offset-1">
+        <h3>Excluding ...</h3>
+            
+           {% for allergen in allergens %}
+                
+                    <input type="checkbox" name="allergen-{{ loop.index }}" value="{{ allergen }}">{{ allergen | title }}<br>
+                  
+            {% endfor %}
+     
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-11  col-xs-offset-1  col-sm-5  col-sm-offset-1">
+        <h3>Type</h3>
+            
+           {% for type in types %}
+                
+                    <input type="checkbox" name="type-{{ loop.index }}" value="{{ type }}">{{ type | title }}<br>
+                  
+            {% endfor %}
+     
+    </div>
+    <div class="col-xs-11  col-xs-offset-1   col-sm-5  col-sm-offset-1">
+        <h3>Category</h3>
+        
+            {% for category in categories %}
+                
+                    <input type="radio" name="category" value="{{ category }}">{{ category | title }}<br>
+                  
+            {% endfor %}
+     
+    </div>
+</div>
+
+<div class="row  page">
+    <div class="col-xs-11  col-xs-offset-1   col-sm-3  col-sm-offset-1">
+        <select name="difficulty" class="form-control">
+            <option value="">Difficulty</option>
+            <option value="1">Easy</option>
+            <option value="2">Medium</option>
+            <option value="3">Complex</option>
+        </select>
+    </div>
+    <div class="col-xs-11  col-xs-offset-1   col-sm-3">
+        <select name="spicyness" class="form-control">
+            <option value="">Spicyness</option>
+            <option value="1">Mild</option>
+            <option value="2">Medium</option>
+            <option value="3">Hot</option>
+        </select>
+    </div>
+    <div class="col-xs-11  col-xs-offset-1   col-sm-3">
+        <select name="time" class="form-control">
+            <option value="1440">Time Required</option>
+            <option value="30">30 minutes or less</option>
+            <option value="60">Upto an hour</option>
+            <option value="1440">Over an hour</option>
+        </select>
+    </div>
+</div>
+
+
+
+
+<div class="row  page">
+    <div class="col-xs-12">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid  page">
+    <div class="row">
+        <div class="col-xs-12">
+            <form method="POST" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}">
+                
+                <div class="form-group">
+                    <label for="recipe">Recipe Name</label>
+                    <input type="text" class="form-control" id="recipe" name="recipe" value="{{ recipe.recipe }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="url">Add a picture (Optional)</label>
+                    <input type="text" inputmode="url" class="form-control" id="url" name="url" value="{{ recipe.url }}">
+                </div>
+                
+                <div class="form-group">
+                    {% for type in type_list %}
+                        {% if type == recipe.type %}
+                            <input type="checkbox" id="type-{{ loop.index }}" name="type-{{ loop.index }}" value="{{ type }}"checked>{{ type | title }}
+                        {% else %}
+                            <input type="checkbox" id="type-{{ loop.index }}" name="type-{{ loop.index }}" value="{{ type }}">{{ type | title }}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% for cat in category_list %}
+                        {% if cat == recipe.category %}
+                            <input type="radio" id="category-{{ loop.index }}" name="category-{{ loop.index }}" value="{{ cat }}"checked>{{cat | title }}
+                        {% else %}
+                            <input type="radio" id="category-{{ loop.index }}" name="category-{{ loop.index }}" value="{{ cat }}">{{cat | title }}
+                        {% endif %}
+                    {% endfor %}
+                    
+                </div>
+                
+                <!--div class="form-group">
+                    <label for="prep_time">Preparation time (Hrs, Mins)</label>
+                    <span>
+                    <input type="number" name="prep_time_hrs"> -Hrs
+                    <input type="number" name="prep_time_mins" max="60"> Mins <br>
+                    <label for="cook_time">Cooking time (Hrs, Mins)</label>
+                    <input type="number" name="cook_time_hrs"> Hrs
+                    <input type="number" name="cook_time_mins" max="60"> Mins
+                    </span>
+                </div-->
+                
+                <div class="form-group" id="ingredientContainer">
+                    <label for="ingredients">Ingredients (Ingredient, ammount)</label><br>
+                    
+                    {% for ingredients in recipe.ingredients %}
+            
+                        <input type="text" class="form-control" id="ingredient-{{ loop.index }}" name="ingredient-{{ loop.index }}" value="{{ ingredients }}"><br>
+                        <input type="text" class="form-control  no-submit" id="ingredient" name="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
+        <span onclick="addEntry('ingredient', 'ingredientContainer')">
+            <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
+        </span>
+                    
+                    {% endfor %}
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_ingredients">Main Ingredients</label>
+                    {% if recipe.ingredients %}
+                        {% for ingredients in recipe.main_ingredients %}
+                        
+                            <input type="text" class="form-control" id="main_ingredient-{{ loop.index }}" name="main_ingredient-{{ loop.index }}" value="{{ ingredients }}"><br>
+                        
+                        {% endfor %}
+                    {% else %}
+                    
+                        <input type="text" class="form-control" id="main_ingredient-{{ loop.index }}" name="main_ingredient-{{ loop.index }}" value="{{ ingredients }}">
+                        
+                    {% endif %}
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label for="summary">Summary</label><br>
+                    <input type="text" class="form-control" id="summary" name="summary" value="{{  recipe.summary }}"><br>
+                </div>
+                
+                <div class="form-group">
+                    <label for="allergens">Allergens</label><br>
+                    
+                    {% for allergen in allergens %}
+                    
+                    
+                        {% if allergen == recipe.allergens %}
+                        
+                            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen-{{ loop.index }}" value="{{ allergen }}" checked> {{ allergen |  title }} <br>
+                            
+                        {% else %}
+                            
+                            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen-{{ loop.index }}" value="{{ allergen }}"> {{ allergen |  title }} <br>
+                    
+                         {% endif %}
+                    {% endfor %}
+                    
+                </div>   
+                
+                <div class="form-group" id="instructionContainer">
+                    <label for="instruction">Cooking instructions</label><br>
+                    
+                    {% if recipe.ingredients %}
+                        {% for instructions in recipe.instructions %}
+                
+                            <input type="text" class="form-control" id="instruction-{{ loop.index }}" name="instruction-{{ loop.index }}" value="{{ instructions }}"><br>
+                            <input type="text" class="form-control  no-submit" name="instruction" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
+                            <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
+                        
+                        {% endfor %}
+                    {% else %}
+                    
+                        <input type="text" class="form-control  no-submit" name="instruction" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
+                            <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
+                        
+                    {% endif %}
+                        
+                </div>
+                
+                <div class="form-group  slider-container">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <label for="spicyness">Spicyness</label>
+                            <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="spicyness" name="spicyness" value="{{ recipe.spicyness }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <p><a href="#" data-toggle="tooltip" title="Not spicy or mild"><strong>0</strong></a></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p class="text-center"><a href="#" data-toggle="tooltip" title="mediumly spicy"><i class="fas  fa-pepper-hot  icon"></i></a></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p class="text-right"><a href="#" data-toggle="tooltip" title="spicy"><i class="fas  fa-pepper-hot  icon"></i> <i class="fas  fa-pepper-hot  icon"></i></a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <label for="difficulty">Difficulty</label>
+                            <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="difficulty" name="difficulty" value="{{ recipe.difficulty }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <p><a href="#" data-toggle="tooltip" title="easy"><i class="fas  fa-star  icon"></i></a></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p class="text-center"><a href="#" data-toggle="tooltip" title="medium dificult"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p class="text-right"><a href="#" data-toggle="tooltip" title="complicated"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
+                        </div>
+                    </div>
+                    
+                    {% if session['type']=='admin' %}
+                    
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p>{{ recipe.username | title }}</p>
+                                <p>{{ recipe.author | title }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="checkbox" id="authorised" name="authorised" value="allowed">Allowed
+                            </div>
+                        </div>
+                    
+                    {% endif %}
+                
+                <div>
+                    <input class="submit" type="submit" value="Update recipe">
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

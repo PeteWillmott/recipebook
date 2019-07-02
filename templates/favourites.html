@@ -1,0 +1,37 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="gold">Favourite Recipes</h2>
+    </div>
+</div>
+
+
+<div class="row  page">
+    <div class="col-xs-12">
+        <ul>
+        
+            {% for recipe in recipes %}
+                {% for faves in user.favourites%}
+                    {% if faves == recipe._id | string %}
+                    
+                        <li>
+                            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+                                <h3 class="recipe-title">{{ recipe.recipe }}</h3>
+                            </a>
+                            <p class="recipe-text">{{ recipe.summary }}</p>
+                        </li>
+                    
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        
+        </ul>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+%link {
+  text-decoration: none;
+  font-family: Raleway, sans-serif;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+a {
+  @extend %link;
+  color: $ink;
+}
+
+.facebook {
+    background-color: $facebook;
+}
+
+.twitter {
+    background-color: $twitter;
+}
+
+.youtube {
+    background-color: $youtube;
+}
+
+.social-link {
+    color: $white;
+}
+
+.email {
+    background-color: $gold;
+}
+
+.icon-link-align {
+    margin-top: 10px;
+    margin-right: 10px;
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row  page">
+    
+        
+        {% if recipes %}
+            {% for recipe in recipes %}
+        
+                <div class="col-xs-7">
+                    <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+                        <h3 class="recipe-title">{{ recipe.recipe | title }}</h3>
+                    </a>
+                    <p>{{ recipe.summary | title }}</p>
+                </div>
+                <div class="col-xs-5">
+
+                {% if recipe.url %}
+
+                    <img src="{{ recipe.url }}" alt="{{ recipe.recipe | title }}" class="img-responsive  center-block  padding-10">
+
+                {% else %}
+
+                    <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10">
+
+                {% endif %}
+
+                </div>
+            
+            {% endfor %}
+
+        {% else %}
+
+            <div class="col-xs-12"> 
+                <a href="{{ url_for('search') }}">
+                    <p>No recipes meet those criteriea.</p>
+                </a>
+            </div>
+            
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

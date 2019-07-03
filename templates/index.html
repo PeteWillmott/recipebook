@@ -22,7 +22,7 @@
             
             {% if vote.url %}
             
-            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  top-voted">
+            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  top-voted  user-image">
             <h4 class="text-center  gold">{{ vote.recipe | title }}</h4>
             
             {% else %}
@@ -42,7 +42,7 @@
         <a href="{{ url_for('recipe', recipe_id=vote._id) }}">
             {% if vote.url %}
             
-            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block">
+            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  user-image-small">
             <h4 class="text-center  gold">{{ vote.recipe | title }}</h4>
             
             {% else %}

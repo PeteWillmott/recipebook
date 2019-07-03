@@ -89,15 +89,6 @@ a {
   margin-right: 10px;
 }
 
-/* ----- SEMANTIC HTML ELEMENTS --------------- */
-.top-nav {
-  width: 95vw;
-}
-
-.footer-links {
-  width: 95vw;
-}
-
 /* ----- SPACING AND ALIGNMENT --------------- */
 .center {
   display: block;
@@ -249,9 +240,22 @@ input[type=text] {
   background-color: #ffffcc;
 }
 
+.input {
+  width: 80%;
+}
+
 .navbar {
   margin-bottom: 0;
   border: none;
+  min-height: 70px;
+}
+
+.navbar-nav {
+  padding-top: 10px;
+}
+
+.navbar-toggle {
+  margin-top: 18px;
 }
 
 .navbar-default .navbar-brand {
@@ -304,9 +308,26 @@ input[type=text] {
   margin-bottom: 50px;
 }
 
+.user-image-small {
+  display: block;
+  max-width: 200px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+}
+
+.user-image {
+  display: block;
+  max-width: 500px;
+  max-height: 350px;
+  width: auto;
+  height: auto;
+}
+
 .cards {
   position: relative;
-  min-height: 300px;
+  min-height: 70vh;
+  height: auto;
   padding: 0px;
   margin: 0px;
   list-style-type: none;

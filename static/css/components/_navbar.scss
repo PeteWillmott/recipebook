@@ -1,6 +1,15 @@
 .navbar {
     margin-bottom: 0;
     border: none;
+    min-height: 70px;
+}
+
+.navbar-nav {
+    padding-top: 10px;
+}
+
+.navbar-toggle {
+   margin-top: 18px;
 }
 
 .navbar-default .navbar-brand {

@@ -39,6 +39,17 @@
                             </h3>
                         </a>
                         <p class="recipe-text">{{ recipe.summary }}</p>
+                        
+                        {% if recipe.url %}
+
+                            <img src="{{ recipe.url }}" alt="{{ recipe.recipe | title }}" class="img-responsive  center-block  padding-10  user-image-small">
+
+                        {% else %}
+
+                            <img src="../static/images/defaultSmall.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10">
+
+                        {% endif %}
+
                     </li>
                 
                 {% else %}
@@ -67,6 +78,17 @@
                             </h3>
                         </a>
                         <p class="recipe-text  sentence-case">{{ recipe.summary }}</p>
+
+                        {% if recipe.url %}
+
+                            <img src="{{ recipe.url }}" alt="{{ recipe.recipe | title }}" class="img-responsive  center-block  padding-10  user-image-small">
+
+                        {% else %}
+
+                            <img src="../static/images/defaultSmall.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10">
+
+                        {% endif %}
+
                     </li>
                 
                 {%  endif%}

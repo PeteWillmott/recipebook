@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar  navbar-default  container-fluid  cover">
+    <nav class="navbar  navbar-default  container-fluid  page">
      
         <div class="navbar-header">
           <button type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#recipe-navbar-collapse" aria-expanded="false">
@@ -34,6 +34,7 @@
                 <li><a href="{{ url_for('register') }}">Register</a></li>
                 
             {% endif%}
+
             <li><a href="{{ url_for('display_favourites') }}" class="nav-link">Favourites</a></li>
             <li><a href="{{ url_for('display_notes') }}" class="nav-link">Notes</a></li>
             <li><a href="{{ url_for('add_recipe') }}" class="nav-link">Add</a></li>
@@ -57,7 +58,7 @@
                 {% if messages %}
                 <ul class="flashes">
                     {% for message in messages %}
-                    <li>{{ message }}</li>
+                    <li class="padding-10">{{ message }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -80,8 +81,8 @@
         
         {% endblock %}
     
-        <section id="login">
-            <div class="row  page">
+        <section id="login  margin-10  cover">
+            <div class="row padding-10">
                 
             {% if g.user %}
             
@@ -93,18 +94,35 @@
             
             {% else %}
             
-            <form method="POST" action="/login">
-                <div class="col-xs-5">
-                    <input type="email" name="email" placeholder="Email" />
+            <!--form method="POST" action="/login">
+                <div class="col-xs-6">
+                    <input type="email" class="input" name="email" placeholder="Email" />
                 </div>
-                <div class="col-xs-5">
-                    <input type="password" class="pwrd" name="password" placeholder="Password" />
+                <div class="col-xs-6">
+                    <input type="password" class="pwrd  input" name="password" placeholder="Password" />
                     <span onclick="hideShowPassword()"><i class="far fa-eye"></i></span>
                 </div>
-                <div class="col-xs-2">
+            </div>
+            <div class="row padding-10">
+                <div class="col-xs-offset-10  col-xs-2">
                     <input type="submit" value="Log In" />
                 </div>
-            </form>
+            </form-->
+            <div class="col-xs-12">
+                <form method="POST" action="/login" class="form-inline">
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" name="email" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" class="pwrd" name="password" placeholder="Password" />
+                        <span onclick="hideShowPassword()"><i class="far fa-eye"></i></span>
+                    </div>
+                    <button type="submit" class="btn btn-default">Log In</button>
+                </form>
+            </div>
+            
             
             {% endif %}
             
@@ -113,8 +131,8 @@
         
     </main>
 
-    <footer class="container-fluid  cover">
-            <div class="footer-links  row">
+    <footer class="container-fluid  cover  margin-10">
+            <div class="footer-links  row  padding-10">
                 <div class="col-xs-3">
                     <a href="" target="_blank" title="Twitter">
                         <span class="center  twitter">

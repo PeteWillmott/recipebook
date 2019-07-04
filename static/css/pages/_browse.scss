@@ -1,6 +1,5 @@
 .cards {
     position: relative;
-    min-height: 70vh;
     height: auto;
     padding: 0px;
     margin: 0px;
@@ -15,7 +14,7 @@
     height: 100%;
     opacity: 0;
     z-index: 1;
-    padding: 40px;
+    padding: 30px;
     box-sizing: border-box;
     background: $parchment;
     color: $ink;
@@ -29,4 +28,8 @@
 .top {
     opacity: 1;
     z-index: 2;
+}
+
+.spacer {
+    min-height: 65vh;
 }

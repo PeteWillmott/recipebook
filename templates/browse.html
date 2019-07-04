@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="row  page">
+<div class="row  page  spacer">
     <div class="col-xs-12">
         <ul id="cards" class="cards">
         
@@ -23,14 +23,14 @@
                                 {% for votes in user.voted %}
                                     {% if votes == recipe._id | string %}
                                         
-                                        <i class="far fa-thumbs-up"></i>
+                                        <i class="far fa-thumbs-up  pull-right  padding-10"></i>
                                     
                                     {% endif %}
                                 {% endfor %}
                                 {% for faves in user.favourites%}
                                     {% if faves == recipe._id | string %}
                                     
-                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star  pull-right  padding-10"></i>
                                     
                                     {% endif %}
                                 {%endfor%}
@@ -38,7 +38,7 @@
                             
                             </h3>
                         </a>
-                        <p class="recipe-text">{{ recipe.summary }}</p>
+                        <p class="recipe-text  sentence-case  padding-20">{{ recipe.summary }}</p>
                         
                         {% if recipe.url %}
 
@@ -62,14 +62,14 @@
                                 {% for votes in user.voted %}
                                     {% if votes == recipe._id | string %}
                                         
-                                        <i class="far fa-thumbs-up"></i>
+                                        <i class="far fa-thumbs-up  pull-right  padding-10"></i>
                                     
                                     {% endif %}
                                 {% endfor %}
                                 {% for faves in user.favourites%}
                                     {% if faves == recipe._id | string %}
                                     
-                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star  pull-right  padding-10"></i>
                                     
                                     {% endif %}
                                 {%endfor%}
@@ -77,7 +77,7 @@
                             
                             </h3>
                         </a>
-                        <p class="recipe-text  sentence-case">{{ recipe.summary }}</p>
+                        <p class="recipe-text  sentence-case  padding-20">{{ recipe.summary }}</p>
 
                         {% if recipe.url %}
 
@@ -100,7 +100,7 @@
     </div>
 </div>
 
-<div class="row  page">
+<div class="row  page  padding-20">
     <div class="col-xs-6">
         <button class="browse-button" id="previous">Previous</button>
     </div>

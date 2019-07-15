@@ -47,11 +47,6 @@ label {
   margin-bottom: 0px;
 }
 
-label[for="allergens"] {
-  color: $red !important;
-}
-
-
 input[type=submit] {
     @extend %body-font;
     color: $ink;

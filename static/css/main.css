@@ -33,6 +33,10 @@ $color5: rgba(188, 178, 168, 1);
   color: #352e26;
 }
 
+.warning {
+  color: #cc3300 !important;
+}
+
 /*
 * {
   background: #000 !important;
@@ -229,10 +233,6 @@ p {
 label {
   color: #352e26;
   margin-bottom: 0px;
-}
-
-label[for="allergens"] {
-  color: #cc3300 !important;
 }
 
 input[type=submit] {

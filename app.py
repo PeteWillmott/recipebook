@@ -445,7 +445,7 @@ def delete_recipe(recipe_id):
     
     if session['type'] == "admin":
         mongo.db.recipe.remove({"_id": ObjectId(recipe_id)})
-        return_url = request.referrer or '/admin'
+        return_url = '/admin'
     
         return redirect(return_url)
         

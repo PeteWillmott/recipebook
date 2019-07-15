@@ -173,7 +173,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <input type ="submit" formaction="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" value="Delete">
+                                <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"><p>Delete</p></a>
                             </div>
                         </div>   
                     

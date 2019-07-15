@@ -366,6 +366,10 @@ def update_recipe(recipe_id):
         
         the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
         
+        if session['type'] == "admin":
+
+            return redirect(url_for('recipe_authorisation'))
+
         return render_template('recipe.html', recipe=the_recipe)
  
 

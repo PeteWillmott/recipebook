@@ -6,7 +6,6 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from bson.son import SON
-from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -293,8 +292,6 @@ def add_recipe():
     
     if g.user:
         if request.method == 'POST':
-        
-            # add email alert to site admin
             
             ingredient_list = []
             instruction_list = []
@@ -304,10 +301,6 @@ def add_recipe():
                 ingredient_list.append(value)
             for value in instruction_data:
                 instruction_list.append(value)
-                    
-            pp = pprint.PrettyPrinter(indent=4)
-            pp.pprint(ingredient_list)
-            pp.pprint(instruction_list)
         
             prep_time1 = request.form.get('prep_time_hrs')
             prep_time2 = request.form.get('prep_time_mins')
@@ -321,7 +314,7 @@ def add_recipe():
             
             mongo.db.recipe.insert_one({"recipe": request.form.get('recipe'), "prep_time": prep_time, "cook_time": cook_time, "total_time": total_time,  "category": request.form.get('category'), "url": request.form.get('url'), "type": request.form.get('type'), "allergens": request.form.get('allergen'), "ingredients": ingredient_list,"main_ingredients": request.form.getlist('main_ingredient'), "instructions": instruction_list, "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", "author": request.form.get('author'), "summary": request.form.get('summary'), "votes": "0"})
             user = mongo.db.users.find_one({'username': g.user})
-            
+             
             return render_template("browse.html", user=user, recipes=mongo.db.recipe.find({"authorisation": "allowed"}) )
        
         return render_template("addrecipe.html", allergens=allergens, types=types)
@@ -356,20 +349,20 @@ def update_recipe(recipe_id):
     if g.user:
         if request.method == 'POST':
             mongo.db.recipe.update( {'_id': ObjectId(recipe_id)}, 
-        {'$set': {
-            'type':request.form.get('type'),
-            'category':request.form.get('category'),
-            'recipe': request.form.get('recipe'),
-            'ingredients': request.form.getlist('ingredient'),
-            'url':request.form.get('url'),
-            'main_ingredients': request.form.getlist('main_ingredient'),
-            'summary':request.form.get('summary'),
-            'allergens':request.form.get('allergen'),
-            'instructions': request.form.getlist('instruction'),
-            'spicyness':request.form.get('spicyness'),
-            'difficulty':request.form.get('difficulty'),
-            "authorisation": request.form.get('authorised')
-        }}) 
+            {'$set': {
+                'type':request.form.get('type'),
+                'category':request.form.get('category'),
+                'recipe': request.form.get('recipe'),
+                'ingredients': request.form.getlist('ingredient'),
+                'url':request.form.get('url'),
+                'main_ingredients': request.form.getlist('main_ingredient'),
+                'summary':request.form.get('summary'),
+                'allergens':request.form.get('allergen'),
+                'instructions': request.form.getlist('instruction'),
+                'spicyness':request.form.get('spicyness'),
+                'difficulty':request.form.get('difficulty'),
+                "authorisation": request.form.get('authorised')
+            }}) 
         
         the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
         
@@ -448,7 +441,11 @@ def delete_recipe(recipe_id):
     
     if session['type'] == "admin":
         mongo.db.recipe.remove({"_id": ObjectId(recipe_id)})
-        return redirect (url_for("recipe_overview"))
+        return_url = request.referrer or '/admin'
+    
+        return redirect(return_url)
+        
+        #return redirect (url_for("recipe_overview"))
     
     flash("Admin access only.")
     return_url = '/'

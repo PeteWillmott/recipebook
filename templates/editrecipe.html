@@ -171,11 +171,16 @@
                                 <input type="checkbox" id="authorised" name="authorised" value="allowed">Allowed
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type ="submit" formaction="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" value="Delete">
+                            </div>
+                        </div>   
                     
                     {% endif %}
                 
                 <div>
-                    <input class="submit" type="submit" value="Update recipe">
+                    <input class="submit" type="submit" name="action" value="Update">
                 </div>
                 
             </form>

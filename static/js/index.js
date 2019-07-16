@@ -23,6 +23,8 @@ function addEntry(target, destination){
         var container = document.getElementById(destination);
         var content = $( "#" + target).val();
         var entry = document.createElement("input");
+        entry.className = "form-control text-input no-border";
+        entry.type = "text";
         var br = document.createElement("br");
         
         $( "#" + target).val(null);

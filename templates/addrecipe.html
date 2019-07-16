@@ -8,14 +8,14 @@
 <div class="row  page">
     <div class="col-xs-12">
         <label for="recipe">Recipe Name</label>
-        <input type="text" class="form-control" id="recipe" name="recipe" placeholder="Recipe Name">
+        <input type="text" class="form-control  text-input" id="recipe" name="recipe" placeholder="Recipe Name">
     </div>
 </div>
 
 <div class="row  page">
     <div class="col-xs-12">
         <label for="url">Add a picture (Optional)</label>
-        <input type="text" inputmode="url" class="form-control" id="url" name="url" placeholder="URL">
+        <input type="text" inputmode="url" class="form-control  text-input" id="url" name="url" placeholder="URL">
     </div>
 </div>
 
@@ -62,7 +62,7 @@
 <div class="row  page">
     <div class="col-xs-12">
         <label for="ingredients">Ingredients (Ingredient, ammount)</label><br>
-        <input type="text" class="form-control  no-submit" id="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
+        <input type="text" class="form-control  text-input  no-submit" id="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
         <span onclick="addEntry('ingredient', 'ingredientContainer')">
             <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
         </span>
@@ -74,7 +74,7 @@
     <div class="col-xs-12">
         <label for="main_ingredients">Main Ingredients</label><br>
         <p>Main ingredients are what defines your dish, the ingredients you would enter in a search bar if you were looking for that recipe.</p>
-        <input type="text" class="form-control" id="main_ingredient" name="main_ingredient" placeholder="Main ingredient, eg chicken, basmatti rice">
+        <input type="text" class="form-control  text-input" id="main_ingredient" name="main_ingredient" placeholder="Main ingredient, eg chicken, basmatti rice" onkeydown="noSubmit()"> 
     </div>
 </div>
 
@@ -82,13 +82,13 @@
     <div class="col-xs-12">
         <label for="summary">Summary</label><br>
         <p>Summary, this text will be displayed in the browse menu.</p>
-        <input type="text" class="form-control" id="summary" name="summary" placeholder="Summary">
+        <input type="text" class="form-control  text-input" id="summary" name="summary" placeholder="Summary" onkeydown="noSubmit()">
     </div>
 </div>
 
 <div class="row  page">
     <div class="col-xs-12">
-        <label for="allergens">Allergens</label><br> 
+        <label for="allergens" class="warning">Allergens</label><br> 
             
         {% for allergen in allergens %}
 
@@ -107,7 +107,7 @@
 <div class="row  page">
     <div class="col-xs-12">
         <label for="instructions">Cooking instructions</label><br>
-        <input type="text" class="form-control  no-submit" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
+        <input type="text" class="form-control  text-input  no-submit" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
     </div>
 </div>
 <div class="row  page">

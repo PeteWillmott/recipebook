@@ -240,14 +240,20 @@ input[type=submit] {
   background-color: #ffffcc;
 }
 
-input[type=text] {
-  border: none;
+.text-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
   border-bottom: 1px solid #352e26;
   background-color: #ffffcc;
 }
 
 .input {
   width: 80%;
+}
+
+.no-border {
+  border: none;
 }
 
 .navbar {

@@ -53,12 +53,18 @@ input[type=submit] {
     background-color: $parchment;
 }
 
-input[type=text] {
-  border: none;
+.text-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
   border-bottom: 1px solid $ink;
   background-color: $parchment;
 }
 
 .input{
   width: 80%;
+}
+
+.no-border {
+  border: none;
 }

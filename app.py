@@ -133,8 +133,15 @@ def search_results():
     form_data = request.form
     ingredient = False
     recipe_type = False
-    recipe_category = []
     category = request.form.get("category")
+
+    if category == "vegan":
+        cat_list = ["vegan"]
+    elif category == "vegetarian":
+        cat_list = ["vegetarian", "vegan"]
+    else:
+        cat_list =["vegetarian", "vegan", "omni"]
+        
     
     for key in form_data:
         if 'ingredient' in key:
@@ -142,12 +149,11 @@ def search_results():
             ingredient = True
         elif 'allergen' in key:
             allergen_list.append(form_data[key])
-            allergen = True
+            # allergen = True
         elif 'type'in key:
             type_list.append(form_data[key])
             recipe_type = True
         
-    
     spicyness = request.form.get('spicyness', type=int)
     if spicyness is None:
         spicyness = {'$lte': 3}
@@ -156,14 +162,19 @@ def search_results():
         difficulty = {'$lte': 3}
     time = request.form.get('time', type=int)
     
+    
     if ingredient is True and recipe_type is True:
-        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "type": {'$in': type_list}, "spicyness": spicyness, "difficulty":difficulty, "total_time": {'$lte': time}  } )
+        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "type": {'$in': type_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty":difficulty, "total_time": {'$lte': time}  } )
     elif ingredient is True:
-        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
+        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
     elif recipe_type is True:
-        recipes = mongo.db.recipe.find({"type": {'$in': type_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
+        recipes = mongo.db.recipe.find({"type": {'$in': type_list}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
     else:
-        recipes = mongo.db.recipe.find({ "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
+        recipes = mongo.db.recipe.find({ "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
+
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(recipe)
+    pp.pprint(cat_list)
     
     return render_template("searchresults.html", recipes=recipes ) 
     
@@ -311,8 +322,12 @@ def add_recipe():
             cook_time = hrs_to_mins(cook_time1)
             cook_time += int(cook_time2)
             total_time = prep_time + cook_time
+
+            category = request.form.get('category')
+            if category is None:
+                category = "omni"
             
-            mongo.db.recipe.insert_one({"recipe": request.form.get('recipe'), "prep_time": prep_time, "cook_time": cook_time, "total_time": total_time,  "category": request.form.get('category'), "url": request.form.get('url'), "type": request.form.get('type'), "allergens": request.form.get('allergen'), "ingredients": ingredient_list,"main_ingredients": request.form.getlist('main_ingredient'), "instructions": instruction_list, "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", "author": request.form.get('author'), "summary": request.form.get('summary'), "votes": "0"})
+            mongo.db.recipe.insert_one({"recipe": request.form.get('recipe'), "prep_time": prep_time, "cook_time": cook_time, "total_time": total_time,  "category": category, "url": request.form.get('url'), "type": request.form.get('type'), "allergens": request.form.get('allergen'), "ingredients": ingredient_list,"main_ingredients": request.form.getlist('main_ingredient'), "instructions": instruction_list, "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", "author": request.form.get('author'), "summary": request.form.get('summary'), "votes": "0"})
             user = mongo.db.users.find_one({'username': g.user})
              
             return render_template("browse.html", user=user, recipes=mongo.db.recipe.find({"authorisation": "allowed"}) )
@@ -360,10 +375,13 @@ def update_recipe(recipe_id):
     
     if g.user:
         if request.method == 'POST':
+            category = request.form.get('category')
+            if category is None:
+                category = "omni"
             mongo.db.recipe.update( {'_id': ObjectId(recipe_id)}, 
             {'$set': {
                 'type':request.form.get('type'),
-                'category':request.form.get('category'),
+                'category': category,
                 'recipe': request.form.get('recipe'),
                 'ingredients': request.form.getlist('ingredient'),
                 'url':request.form.get('url'),

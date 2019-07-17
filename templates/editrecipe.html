@@ -35,16 +35,16 @@
                     
                 </div>
                 
-                <!--div class="form-group">
+                <div class="form-group">
                     <label for="prep_time">Preparation time (Hrs, Mins)</label>
                     <span>
-                    <input type="number" name="prep_time_hrs"> -Hrs
-                    <input type="number" name="prep_time_mins" max="60"> Mins <br>
+                    <input type="number" name="prep_time_hrs" value="{{ prep_hrs }}"> -Hrs
+                    <input type="number" name="prep_time_mins" min="0" max="60" value="{{ prep_mins }}"> Mins <br>
                     <label for="cook_time">Cooking time (Hrs, Mins)</label>
-                    <input type="number" name="cook_time_hrs"> Hrs
-                    <input type="number" name="cook_time_mins" max="60"> Mins
+                    <input type="number" name="cook_time_hrs" value="{{ cook_hrs }}"> Hrs
+                    <input type="number" name="cook_time_mins" min="0" max="60" value="{{ cook_mins }}"> Mins
                     </span>
-                </div-->
+                </div>
                 
                 <div class="form-group" id="ingredientContainer">
                     <label for="ingredients">Ingredients (Ingredient, ammount)</label><br>
@@ -52,12 +52,15 @@
                     {% for ingredients in recipe.ingredients %}
             
                         <input type="text" class="form-control" id="ingredient-{{ loop.index }}" name="ingredient-{{ loop.index }}" value="{{ ingredients }}"><br>
-                        <input type="text" class="form-control  no-submit" id="ingredient" name="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
-        <span onclick="addEntry('ingredient', 'ingredientContainer')">
-            <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
-        </span>
+                        
+        
                     
                     {% endfor %}
+
+                    <input type="text" class="form-control  no-submit" id="ingredient" name="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
+                    <span onclick="addEntry('ingredient', 'ingredientContainer')">
+                        <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
+                    </span>
                     
                 </div>
                 
@@ -108,10 +111,14 @@
                         {% for instructions in recipe.instructions %}
                 
                             <input type="text" class="form-control" id="instruction-{{ loop.index }}" name="instruction-{{ loop.index }}" value="{{ instructions }}"><br>
-                            <input type="text" class="form-control  no-submit" name="instruction" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
-                            <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
+                            
+                            
                         
                         {% endfor %}
+
+                        <input type="text" class="form-control  no-submit" name="instruction" id="instruction" placeholder="Next step" onKeydown="noSubmit('instruction', 'instructionContainer')">
+                        <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
+
                     {% else %}
                     
                         <input type="text" class="form-control  no-submit" name="instruction" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">

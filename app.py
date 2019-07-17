@@ -333,7 +333,19 @@ def edit_recipe(recipe_id):
     
     recipe = mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
     if g.user == recipe['author'] or session['type'] == "admin":    
-        return render_template("editrecipe.html", recipe=recipe, allergens=allergens, types=types)
+        if recipe['prep_time'] != 0:
+            prep_hrs = recipe['prep_time'] // 60
+            prep_mins = recipe['prep_time'] % 60
+        else:
+            prep_hrs = 0
+            prep_mins = 0
+        if recipe['cook_time'] != 0:
+            cook_hrs = recipe['cook_time'] // 60
+            cook_mins = recipe['cook_time'] % 60
+        else:
+            cook_hrs = 0
+            cook_mins = 0
+        return render_template("editrecipe.html", recipe=recipe, allergens=allergens, types=types, prep_hrs=prep_hrs, prep_mins=prep_mins, cook_hrs=cook_hrs, cook_mins=cook_mins)
         
     flash("Only the original author or an admin may edit a recipe.")
     return_url = '/'

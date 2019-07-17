@@ -164,18 +164,14 @@ def search_results():
     
     
     if ingredient is True and recipe_type is True:
-        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "type": {'$in': type_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty":difficulty, "total_time": {'$lte': time}  } )
+        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "type": {'$in': type_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty":difficulty, "total_time": {'$lte': time}  } )
     elif ingredient is True:
-        recipes = mongo.db.recipe.find({ "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
+        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
     elif recipe_type is True:
-        recipes = mongo.db.recipe.find({"type": {'$in': type_list}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
+        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "type": {'$in': type_list}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
     else:
-        recipes = mongo.db.recipe.find({ "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
+        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
 
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(recipe)
-    pp.pprint(cat_list)
-    
     return render_template("searchresults.html", recipes=recipes ) 
     
 

@@ -343,7 +343,7 @@ def edit_recipe(recipe_id):
     
     
     recipe = mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
-    if g.user == recipe['author'] or session['type'] == "admin":    
+    if g.user == recipe['author'] or g.admin:    
         if recipe['prep_time'] != 0:
             prep_hrs = recipe['prep_time'] // 60
             prep_mins = recipe['prep_time'] % 60
@@ -392,7 +392,7 @@ def update_recipe(recipe_id):
         
         the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
         
-        if session['type'] == "admin":
+        if g.admin:
 
             return redirect(url_for('recipe_authorisation'))
 
@@ -404,7 +404,7 @@ def admin():
     
     """Entry point for admin functions."""
     
-    if session['type'] == "admin":
+    if g.admin:
         
         return render_template("admin.html")
         
@@ -419,7 +419,7 @@ def recipe_authorisation():
     
     """Display, edit, and authorise, the unauthorised recipes."""
     
-    if session['type'] == "admin":
+    if g.admin:
         unauthorised = mongo.db.recipe.find({"authorisation": "not"})
         authorised = mongo.db.recipe.find({"authorisation": "allowed"})
         users = mongo.db.users.find()
@@ -437,7 +437,7 @@ def user_authorisation():
     
     """Displays user details. Allows a user to be set as an admin."""
     
-    if session['type'] == "admin":
+    if g.admin:
         users = mongo.db.users.find()
         
         return render_template("userauthorisation.html", users=users)
@@ -453,7 +453,7 @@ def recipe_overview():
     
     """Overview of recipes."""
     
-    if session['type'] == "admin":
+    if g.admin:
         authorised = mongo.db.recipe.find({"authorisation": "allowed"})
         
         return render_template("recipeadmin.html", authorised=authorised)
@@ -469,7 +469,7 @@ def delete_recipe(recipe_id):
     
     """Admin funcction to remove recipe from the database"""
     
-    if session['type'] == "admin":
+    if g.admin:
         mongo.db.recipe.remove({"_id": ObjectId(recipe_id)})
         return_url = '/admin'
     

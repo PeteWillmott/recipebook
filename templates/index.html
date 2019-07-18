@@ -22,13 +22,13 @@
             
             {% if vote.url %}
             
-            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  top-voted  user-image">
+            <img src="{{ vote.url }}" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  top-bottom-margin  user-image">
             <h4 class="text-center  gold">{{ vote.recipe | title }}</h4>
             
             {% else %}
             
-            <img src="../static/images/default.png" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-voted">
-            <h4 class="text-center  gold">{{ vote.recipe | title }}</h4>
+            <img src="../static/images/default.png" alt="{{ vote.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-bottom-margin">
+            <h4 class="text-center  gold  padding-bottom-20">{{ vote.recipe | title }}</h4>
             
             {% endif %}
             

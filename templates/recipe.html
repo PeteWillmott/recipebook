@@ -48,13 +48,13 @@
     <div class="row  page">
         <div class="col-xs-12  col-md-5  col-md-push-7">
                 
-            {% if recipe.img %}
+            {% if recipe.url %}
                 
-                <img src="{{ recipe.img }}" class="img-responsive  center-block  top-voted" alt="A picture of {{recipe.recipe | title }}">
+                <img src="{{ recipe.url }}" class="img-responsive  center-block  top-bottom-margin  user-image" alt="A picture of {{recipe.recipe | title }}">
                 
             {% else %}
             
-                <img src="../static/images/defaultSmall.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-voted">
+                <img src="../static/images/defaultSmall.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-bottom-margin">
                 
             {% endif %}
                 

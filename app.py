@@ -35,7 +35,7 @@ def index():
     
     """Home page with menu."""
     
-    votes = mongo.db.recipe.find().sort("votes", pymongo.DESCENDING).limit(4)
+    votes = mongo.db.recipe.find({"authorisation": "allowed"}).sort("votes", pymongo.DESCENDING).limit(4)
     
     return render_template("index.html", votes=votes)
     

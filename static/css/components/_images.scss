@@ -2,17 +2,29 @@
     opacity: 0.5;
 }
 
-.top-voted {
+.top-bottom-margin {
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
 .user-image-small {
     display: block;
-    max-width:200px;
-    max-height:150px;
     width: auto;
     height: auto;
+    max-width: 95px;
+    
+    @include large-phone {
+        max-width: 190px;
+    }
+    @include tablet {
+        max-width: 200px;
+    }
+    @include desktop {
+        max-width: 200px;
+    }
+    @include large-desktop {
+        max-width: 200px;
+    }
 }
 
 .user-image {

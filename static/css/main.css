@@ -114,6 +114,10 @@ a {
   padding-bottom: 20px;
 }
 
+.padding-bottom-20 {
+  padding-bottom: 20px;
+}
+
 /* ----- TITLES, HEADINGS AND TEXT ---------------------------- */
 .page-title {
   font-family: 'Bad Script', cursive;
@@ -315,17 +319,40 @@ input[type=submit] {
   opacity: 0.5;
 }
 
-.top-voted {
+.top-bottom-margin {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
 .user-image-small {
   display: block;
-  max-width: 200px;
-  max-height: 150px;
   width: auto;
   height: auto;
+  max-width: 95px;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .user-image-small {
+    max-width: 190px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .user-image-small {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .user-image-small {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .user-image-small {
+    max-width: 200px;
+  }
 }
 
 .user-image {

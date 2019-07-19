@@ -196,7 +196,7 @@ def recipe(recipe_id):
     """Display the selected recipe."""
     
     the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
-    the_user = mongo.db.users.find_one( { "notes.id": recipe_id, 'username': g.user } )
+    the_user = mongo.db.users.find_one( { "notes.id": recipe_id, 'email': g.user } )
     
     return render_template('recipe.html', recipe=the_recipe, user=the_user)
     

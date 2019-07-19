@@ -8,26 +8,20 @@
 </div>
 
 <div class="row  page  spacer">
-    
-    {% for note in notes %}
-    
-        <div class="col-xs-offset-1  col-xs-11">
-            
-            {% for ids in note.notes.id %}
-        
-                <a href="{{ url_for('recipe', recipe_id=ids) }}">
-            
-            {% endfor %}
+    <div class="col-xs-12">       
+        <ul>
+
+        {% for note in notes %}
             {% for cont in note.notes.content %}
+            
+                <li>{{ cont | join }}</li>
 
-                <p class="sentence-case">  {{ cont | join }}</p>
+            {% endfor %}   
+        {% endfor %}
 
-            {% endfor %}
-
-        </div>
+        </ul>  
         
-    {% endfor %}
-
+    </div>
 </div>
 
 {% endblock %}

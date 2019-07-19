@@ -13,13 +13,17 @@
     
         <div class="col-xs-12">
             
-            {% for ids in note.notes.id%}
+            {% for ids in note.notes.id %}
         
                 <a href="{{ url_for('recipe', recipe_id=ids) }}">
-                    
+            
             {% endfor %}
-        
-            <p class="sentence-case">  {{ note.notes.content | join }}</p>
+            {% for cont in note.notes.content %}
+
+                <p class="sentence-case">  {{ cont | join }}</p>
+
+            {% endfor %}
+
         </div>
         
     {% endfor %}

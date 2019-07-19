@@ -53,17 +53,19 @@
     
     <section class="flash-messages  container-fluid">
         <div class="row">
-            <div class="col-xs-12  cover">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
+            
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="col-xs-12  page">
                 <ul class="flashes">
                     {% for message in messages %}
                     <li class="padding-10">{{ message }}</li>
                     {% endfor %}
                 </ul>
-                {% endif %}
-                {% endwith %}
             </div>
+            {% endif %}
+            {% endwith %}
+            
         </div>
     </section>
     
@@ -94,20 +96,22 @@
             
             {% else %}
             
-            <div class="col-xs-12">
-                <form method="POST" action="/login" class="form-inline">
-                    <div class="form-group">
-                        <label for="email" class="sr-only">Email</label>
-                        <input type="email" name="email" placeholder="Email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="sr-only">Password</label>
-                        <input type="password" class="pwrd" name="password" placeholder="Password" />
-                        <span onclick="hideShowPassword()"><i class="far fa-eye"></i></span>
-                    </div>
+            
+            <form method="POST" action="/login">
+                <div class="col-xs-6  col-sm-4  form-group">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" class="input" name="email" placeholder="Email" />
+                </div>
+                <div class="col-xs-6  col-sm-4  form-group">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" class="input  pwrd" name="password" placeholder="Password" />
+                    <span onclick="hideShowPassword()"><i class="far fa-eye"></i></span>
+                </div>
+                <div class="col-xs-offset-10  col-xs-2  col-sm-4  form-group">
                     <button type="submit" class="btn btn-default">Log In</button>
-                </form>
-            </div>
+                </div>
+            </form>
+            
             
             
             {% endif %}

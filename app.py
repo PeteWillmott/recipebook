@@ -48,7 +48,8 @@ def before_request():
     g.user = None
     g.admin = None
     if 'user' in session:
-        g.user = session['user']
+        g.user = session['email']
+        g.name = session['user']
     if 'type' in session:
         if session['type'] == "admin":
             g.admin = "admin"
@@ -181,8 +182,9 @@ def browse():
     """Display the recipes on individual cards."""
     
     if g.user:
-        user = mongo.db.users.find_one({'username': g.user})
-        
+        userid = mongo.db.users.find_one({'email': g.user})
+        user = userid['username']
+
         return render_template("browse.html", user=user, recipes=mongo.db.recipe.find({"authorisation": "allowed"}))
         
     return render_template("browse.html", recipes=mongo.db.recipe.find({"authorisation": "allowed"}))
@@ -209,7 +211,7 @@ def vote():
             recipeID = request.form.get('recipeID')
             votes = request.form.get('votes')
             vote_total = int(votes) + 1
-            voted_check = mongo.db.users.find_one({'username': g.user, 'voted': ObjectId(recipeID)})
+            voted_check = mongo.db.users.find_one({'email': g.user, 'voted': ObjectId(recipeID)})
             if voted_check:
                 flash("You have already liked this recipe.")
                 
@@ -217,7 +219,7 @@ def vote():
                 
             else:
                 mongo.db.recipe.update({"_id": ObjectId(recipeID)}, {'$set': {'votes': vote_total}})
-                mongo.db.users.update({'username': g.user}, {'$push': {'voted':ObjectId(recipeID)}})
+                mongo.db.users.update({'email': g.user}, {'$push': {'voted':ObjectId(recipeID)}})
             
     return redirect (url_for('recipe', recipe_id=recipeID))
 
@@ -230,7 +232,7 @@ def add_favourite():
     if g.user:
         if request.method == 'POST':
             recipeID = request.form.get('recipeID')
-            mongo.db.users.update({'username': g.user}, {'$push': {'favourites':recipeID}})
+            mongo.db.users.update({'email': g.user}, {'$push': {'favourites':recipeID}})
     
     return redirect (url_for('recipe', recipe_id=recipeID))
     
@@ -241,7 +243,7 @@ def display_favourites():
     """List preset favourites, with link to the recipe(s)."""
     
     if g.user:
-        user = mongo.db.users.find_one({'username': g.user})
+        user = mongo.db.users.find_one({'email': g.user})
         recipes = mongo.db.recipe.find({"authorisation": "allowed"})
         
         return render_template("favourites.html", user=user, recipes=recipes)
@@ -264,13 +266,13 @@ def add_note(recipe_id):
             
             # mongo.db.users.update({"username": g.user, "notes.id":recipeID}, { '$set': { "notes.content" : content } })
             # db.users.update( { "email: useremail }, { $set: {"notes": { "id": recipeID, "content": content } } } )
-            mongo.db.users.update({'username': g.user}, {'$push': {'notes.id':recipeID, 'notes.content': content}})
+            mongo.db.users.update({'email': g.user}, {'$push': {'notes.id':recipeID, 'notes.content': content}})
             the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
-            the_user = mongo.db.users.find_one({"notes.id": recipe_id, 'username': g.user})
+            the_user = mongo.db.users.find_one({"notes.id": recipe_id, 'email': g.user})
             return render_template('recipe.html', recipe=the_recipe, user=the_user)
         
         the_recipe =  mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
-        the_user = mongo.db.users.find_one({"notes.id": recipe_id, 'username': g.user})
+        the_user = mongo.db.users.find_one({"notes.id": recipe_id, 'email': g.user})
         return render_template('addnote.html', recipe=the_recipe, user=the_user)
     
     return redirect (url_for('browse'))
@@ -282,7 +284,7 @@ def display_notes():
     """Displays all the users notes."""
     
     if g.user:
-        notes = mongo.db.users.find({"username": g.user}, {'notes.content': 1, 'notes.id': 1})
+        notes = mongo.db.users.find({"email": g.user}, {'notes.content': 1, 'notes.id': 1})
         
         return render_template("notes.html", notes=notes)
     
@@ -324,7 +326,7 @@ def add_recipe():
                 category = "omni"
             
             mongo.db.recipe.insert_one({"recipe": request.form.get('recipe'), "prep_time": prep_time, "cook_time": cook_time, "total_time": total_time,  "category": category, "url": request.form.get('url'), "type": request.form.get('type'), "allergens": request.form.get('allergen'), "ingredients": ingredient_list,"main_ingredients": request.form.getlist('main_ingredient'), "instructions": instruction_list, "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", "author": request.form.get('author'), "summary": request.form.get('summary'), "votes": "0"})
-            user = mongo.db.users.find_one({'username': g.user})
+            user = mongo.db.users.find_one({'email': g.user})
              
             return render_template("browse.html", user=user, recipes=mongo.db.recipe.find({"authorisation": "allowed"}) )
        
@@ -358,7 +360,9 @@ def edit_recipe(recipe_id):
             cook_mins = 0
         return render_template("editrecipe.html", recipe=recipe, allergens=allergens, types=types, prep_hrs=prep_hrs, prep_mins=prep_mins, cook_hrs=cook_hrs, cook_mins=cook_mins)
         
-    flash("Only the original author or an admin may edit a recipe.")
+    # flash("Only the original author or an admin may edit a recipe.")
+    flash(recipe['author'])
+    flash(g.user)
     return_url = request.referrer or '/'
     
     return redirect(return_url)

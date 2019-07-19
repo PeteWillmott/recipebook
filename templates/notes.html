@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row  page">
+<div class="row  cover">
     <div class="col-xs-12">
-        <h2>Notes</h2>
+        <h2 class="gold">Notes</h2>
     </div>
 </div>
 
@@ -11,7 +11,7 @@
     
     {% for note in notes %}
     
-        <div class="col-xs-12">
+        <div class="col-xs-offset-1  col-xs-11">
             
             {% for ids in note.notes.id %}
         

@@ -360,9 +360,8 @@ def edit_recipe(recipe_id):
             cook_mins = 0
         return render_template("editrecipe.html", recipe=recipe, allergens=allergens, types=types, prep_hrs=prep_hrs, prep_mins=prep_mins, cook_hrs=cook_hrs, cook_mins=cook_mins)
         
-    # flash("Only the original author or an admin may edit a recipe.")
-    flash(recipe['author'])
-    flash(g.user)
+    flash("Only the original author or an admin may edit a recipe.")
+
     return_url = request.referrer or '/'
     
     return redirect(return_url)

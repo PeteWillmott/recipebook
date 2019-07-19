@@ -182,9 +182,8 @@ def browse():
     """Display the recipes on individual cards."""
     
     if g.user:
-        userid = mongo.db.users.find_one({'email': g.user})
-        user = userid['username']
-
+        user = mongo.db.users.find_one({'email': g.user})
+        
         return render_template("browse.html", user=user, recipes=mongo.db.recipe.find({"authorisation": "allowed"}))
         
     return render_template("browse.html", recipes=mongo.db.recipe.find({"authorisation": "allowed"}))

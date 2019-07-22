@@ -8,12 +8,17 @@
     </div>
     <div class="col-xs-11   col-xs-offset-1  col-sm-5  col-sm-offset-1">
         <h3>Containing ...</h3>
+            <input list="ingredient" name="ingredient" placeholder="ingredient">
+            <datalist id="ingredient">
+                
+                {% for ingredient in ingredients %}
+
+                    <option value="{{ ingredient }}">
+
+                {% endfor %}
+
+            </datalist>
             
-            {% for ingredient in ingredients %}
-                
-                    <input type="checkbox" name="ingredient-{{ loop.index }}" value="{{ ingredient }}">{{ ingredient | title }}<br>
-                
-            {% endfor %}
          
     </div>
     <div class="col-xs-11  col-xs-offset-1  col-sm-5  col-sm-offset-1">

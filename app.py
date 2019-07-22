@@ -117,9 +117,14 @@ def logout():
 def search():
     
     """Search function, searches on one or more criterea and passes a subset of recipes to searchresults."""
-    
-    ingredients = mongo.db.recipe.distinct( "main_ingredients")
-    
+    ingredients = []
+    ingredient_list = mongo.db.recipe.distinct( "ingredients")
+    for ing in ingredient_list:
+        ingredient = ing.split(",")
+        ingredients.append(ingredient[0])
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(ingredients)   
+    #ingredients = ["tomatoes", "beef", "squid"]
     return render_template("search.html", ingredients=ingredients, allergens=allergens, types=types, categories=categories)
     
     

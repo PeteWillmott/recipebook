@@ -122,9 +122,8 @@ def search():
     for ing in ingredient_list:
         ingredient = ing.split(",")
         ingredients.append(ingredient[0])
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(ingredients)   
-    #ingredients = ["tomatoes", "beef", "squid"]
+    ingredients = list(dict.fromkeys(ingredients))
+    
     return render_template("search.html", ingredients=ingredients, allergens=allergens, types=types, categories=categories)
     
     

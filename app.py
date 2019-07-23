@@ -132,7 +132,6 @@ def search_results():
     
     """Takes the results from the search form and displays the matching recipes."""
         
-    ingredient_list = []
     allergen_list = []
     type_list = []
     form_data = request.form
@@ -149,16 +148,17 @@ def search_results():
         
     
     for key in form_data:
-        if 'ingredient' in key:
-            ingredient_list.append(form_data[key])
-            ingredient = True
-        elif 'allergen' in key:
+        if 'allergen' in key:
             allergen_list.append(form_data[key])
-            # allergen = True
         elif 'type'in key:
             type_list.append(form_data[key])
             recipe_type = True
         
+    ing = request.form.get('ingredient')
+    if ing is None:
+        ingredient = '^/.'
+    else:
+        ingredient = ing
     spicyness = request.form.get('spicyness', type=int)
     if spicyness is None:
         spicyness = {'$lte': 3}
@@ -166,16 +166,21 @@ def search_results():
     if difficulty is None:
         difficulty = {'$lte': 3}
     time = request.form.get('time', type=int)
+
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(ing)
+    pp.pprint(ingredient)
     
-    
-    if ingredient is True and recipe_type is True:
-        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "type": {'$in': type_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty":difficulty, "total_time": {'$lte': time}  } )
-    elif ingredient is True:
-        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "main_ingredients": { '$in': ingredient_list }, "allergens": {'$nin': allergen_list}, "category": {'$in': cat_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
-    elif recipe_type is True:
-        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "type": {'$in': type_list}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
+    if recipe_type is True:
+         recipes = mongo.db.recipe.find({ "authorisation": "allowed", "ingredients": {'$regex':ingredient}, "type": {'$in': type_list}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} } )
     else:
-        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
+        recipes = mongo.db.recipe.find({ "authorisation": "allowed", "ingredients": {'$regex':ingredient}, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} })
+
+    # query = { "authorisation": "allowed", "ingredients": ingredient, "category": {'$in': cat_list}, "allergens": {'$nin': allergen_list}, "spicyness": spicyness, "difficulty": difficulty, "total_time": {'$lte': time} }
+    # pp.pprint(query)
+
+    # recipes = mongo.db.recipe.find({'allergens': {'$nin': []},'authorisation': 'allowed', 'category': {'$in': ['vegetarian', 'vegan', 'omni']}, 'difficulty': {'$lte': 3}, 'ingredients': {'$regex':'^baked beans'}, 'spicyness': {'$lte': 3}, 'total_time': {   '$lte': 1440}})
+
 
     return render_template("searchresults.html", recipes=recipes ) 
     

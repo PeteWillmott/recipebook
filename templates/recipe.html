@@ -32,7 +32,6 @@
                     <input type="submit" value="Favourite" />
                 </form>
             
-                
                 <form method="POST" action="/vote">
                     <i class="far fa-thumbs-up"></i>
                     <input type="hidden" name="recipeID" value="{{ recipe._id }}">
@@ -43,9 +42,7 @@
             <a href="{{ url_for('add_note', recipe_id=recipe._id) }}"><i class="far fa-sticky-note  icon-link-align"></i> Add note</a>
         </div>
         {% endif %}
-        
-            
-            
+          
         </div>
     </div>
     
@@ -75,24 +72,22 @@
                 {% endfor %}
                
             </div>
-            
-        
-        
+               
     </div>
     
     {% if g.user %}
     
-    <div class="row  page">
-        <div class="col-xs-12">
-            
-            {% if user %}
-                <h3>Notes</h3>
-                <p class="sentence-case">  {{ user.notes.content | join }}</p>
+        <div class="row  page">
+            <div class="col-xs-12">
                 
-            {% endif %}
-            
+                {% if user %}
+                    <h3>Notes</h3>
+                    <p class="sentence-case">  {{ user.notes.content | join }}</p>
+                    
+                {% endif %}
+                
+            </div>
         </div>
-    </div>
     
     {% endif %}
     
@@ -109,11 +104,12 @@
         </div>
     </div>
     
-    <div class="row  page">
-        <div class="col-xs-12">
-            <p class="text-right">By {{ recipe.username | title }}</p>
+    {% if recipe.username %}
+        <div class="row  page">
+            <div class="col-xs-12">
+                <p class="text-right">By {{ recipe.username | title }}</p>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}
-

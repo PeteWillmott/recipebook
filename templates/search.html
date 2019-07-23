@@ -17,18 +17,16 @@
 
                 {% endfor %}
 
-            </datalist>
-            
-         
+            </datalist>     
     </div>
     <div class="col-xs-11  col-xs-offset-1  col-sm-5  col-sm-offset-1">
         <h3>Excluding ...</h3>
             
-           {% for allergen in allergens %}
+        {% for allergen in allergens %}
                 
-                    <input type="checkbox" name="allergen-{{ loop.index }}" value="{{ allergen }}">{{ allergen | title }}<br>
+            <input type="checkbox" name="allergen-{{ loop.index }}" value="{{ allergen }}">{{ allergen | title }}<br>
                   
-            {% endfor %}
+        {% endfor %}
      
     </div>
 </div>
@@ -37,21 +35,21 @@
     <div class="col-xs-11  col-xs-offset-1  col-sm-5  col-sm-offset-1">
         <h3>Type</h3>
             
-           {% for type in types %}
+        {% for type in types %}
                 
-                    <input type="checkbox" name="type-{{ loop.index }}" value="{{ type }}">{{ type | title }}<br>
+            <input type="checkbox" name="type-{{ loop.index }}" value="{{ type }}">{{ type | title }}<br>
                   
-            {% endfor %}
+        {% endfor %}
      
     </div>
     <div class="col-xs-11  col-xs-offset-1   col-sm-5  col-sm-offset-1">
         <h3>Category</h3>
         
-            {% for category in categories %}
+        {% for category in categories %}
                 
-                    <input type="radio" name="category" value="{{ category }}">{{ category | title }}<br>
+            <input type="radio" name="category" value="{{ category }}">{{ category | title }}<br>
                   
-            {% endfor %}
+        {% endfor %}
      
     </div>
 </div>
@@ -82,9 +80,6 @@
         </select>
     </div>
 </div>
-
-
-
 
 <div class="row  page">
     <div class="col-xs-12">

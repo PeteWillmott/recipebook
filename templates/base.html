@@ -55,13 +55,19 @@
             
             {% with messages = get_flashed_messages() %}
             {% if messages %}
+
             <div class="col-xs-12  page">
                 <ul class="flashes">
+
                     {% for message in messages %}
-                    <li class="padding-10">{{ message }}</li>
+
+                        <li class="padding-10">{{ message }}</li>
+
                     {% endfor %}
+
                 </ul>
             </div>
+
             {% endif %}
             {% endwith %}
             
@@ -81,42 +87,43 @@
         {% block content %}
         
         {% endblock %}
-    
-        <section id="login  margin-10  cover">
-            <div class="row padding-10">
+
+        {% if request.path !="/register" %}
+
+            <section id="login  margin-10  cover">
+                <div class="row padding-10">
+                    
+                {% if g.user %}
                 
-            {% if g.user %}
-            
-            <div class="col-xs-offset-10  col-xs-2">
-                <form method="POST" action="/logout">
-                    <input type="submit" value="Log Out" />
-                </form>
-            </div>
-            
-            {% else %}
-            
-            
-            <form method="POST" action="/login">
-                <div class="col-xs-6  col-sm-5  form-group">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="email" class="input" name="email" placeholder="Email" />
+                    <div class="col-xs-offset-10  col-xs-2">
+                        <form method="POST" action="/logout">
+                            <input type="submit" value="Log Out" />
+                        </form>
+                    </div>
+                
+                {% else %}
+                
+                    <form method="POST" action="/login">
+                        <div class="col-xs-6  col-sm-5  form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" class="input" name="email" placeholder="Email" />
+                        </div>
+                        <div class="col-xs-6  col-sm-5  form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" class="input  pwrd" name="password" placeholder="Password" />
+                            <span onclick="hideShowPassword()"><i class="far fa-eye  gold"></i></span>
+                        </div>
+                        <div class="col-xs-2  col-sm-2  form-group">
+                            <button type="submit" class="btn btn-default">Log In</button>
+                        </div>
+                    </form>
+                
+                {% endif %}
+                
                 </div>
-                <div class="col-xs-6  col-sm-5  form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" class="input  pwrd" name="password" placeholder="Password" />
-                    <span onclick="hideShowPassword()"><i class="far fa-eye  gold"></i></span>
-                </div>
-                <div class="col-xs-2  col-sm-2  form-group">
-                    <button type="submit" class="btn btn-default">Log In</button>
-                </div>
-            </form>
+            </section>
             
-            
-            
-            {% endif %}
-            
-            </div>
-        </section>
+        {% endif %}
         
     </main>
 

@@ -2,7 +2,6 @@
 {% block content %}
 
 <div class="row  page">
-    
         
         {% if recipes %}
             {% for recipe in recipes %}
@@ -15,15 +14,15 @@
                 </div>
                 <div class="col-xs-5">
 
-                {% if recipe.url %}
+                    {% if recipe.url %}
 
-                    <img src="{{ recipe.url }}" alt="{{ recipe.recipe | title }}" class="img-responsive  center-block  padding-10">
+                        <img src="{{ recipe.url }}" alt="{{ recipe.recipe | title }}" class="img-responsive  center-block  padding-10">
 
-                {% else %}
+                    {% else %}
 
-                    <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10">
+                        <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10">
 
-                {% endif %}
+                    {% endif %}
 
                 </div>
             

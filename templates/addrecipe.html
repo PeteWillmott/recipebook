@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-<!--div class="page"-->
 <form method="POST" action="/addrecipe">
 
 <div class="row  page">
@@ -65,16 +63,7 @@
         <input type="text" class="form-control  text-input  no-submit" id="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
         <span onclick="addEntry('ingredient', 'ingredientContainer')">
             <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
-        </span>
-        
-    </div>
-</div>
-
-<div class="row  page">
-    <div class="col-xs-12">
-        <label for="main_ingredients">Main Ingredients</label><br>
-        <p>Main ingredients are what defines your dish, the ingredients you would enter in a search bar if you were looking for that recipe.</p>
-        <input type="text" class="form-control  text-input" id="main_ingredient" name="main_ingredient" placeholder="Main ingredient, eg chicken, basmatti rice" onkeydown="noSubmit()"> 
+        </span>   
     </div>
 </div>
 
@@ -99,7 +88,6 @@
     </div>
 </div>
 
-
 <div class="row  page">
     <div class="col-xs-12" id="instructionContainer" name="instruction_listing">
     </div>
@@ -112,12 +100,9 @@
 </div>
 <div class="row  page">
     <div class="col-xs-12">
-        <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>
-        
+        <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>   
     </div>
 </div>
-
-
 
 <div class="row  page">
     <div class="col-xs-9">
@@ -126,17 +111,16 @@
     </div>
 </div>
 <div class="row  page">
-        <div class="col-xs-3">
-            <p><a href="#" data-toggle="tooltip" title="Not spicy or mild"><strong>0</strong></a></p>
-        </div>
-        <div class="col-xs-3">
-            <p class="text-center"><a href="#" data-toggle="tooltip" title="medium"><i class="fas  fa-pepper-hot  icon"></i></a></p>
-        </div>
-        <div class="col-xs-3">
-            <p class="text-right"><a href="#" data-toggle="tooltip" title="spicy"><i class="fas  fa-pepper-hot  icon"></i> <i class="fas  fa-pepper-hot  icon"></i></a></p>
-        </div>
+    <div class="col-xs-3">
+        <p><a href="#" data-toggle="tooltip" title="Not spicy or mild"><strong>0</strong></a></p>
     </div>
-
+    <div class="col-xs-3">
+        <p class="text-center"><a href="#" data-toggle="tooltip" title="medium"><i class="fas  fa-pepper-hot  icon"></i></a></p>
+    </div>
+    <div class="col-xs-3">
+        <p class="text-right"><a href="#" data-toggle="tooltip" title="spicy"><i class="fas  fa-pepper-hot  icon"></i> <i class="fas  fa-pepper-hot  icon"></i></a></p>
+    </div>
+</div>
 
 <div class="row  page">
     <div class="col-xs-9">
@@ -164,7 +148,5 @@
 </div>
 
 </form>
-
-
 
 {% endblock %}

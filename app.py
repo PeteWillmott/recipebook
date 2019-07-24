@@ -489,7 +489,7 @@ def recipe_authorisation():
 @app.route('/userauthorisation')
 def user_authorisation():
     
-    """Displays user details. Allows a user to be set as an admin."""
+    """Displays user details. Allows a user to be set as an admin, removed or user records edited."""
     
     if g.admin:
         users = users_coll.find()
@@ -502,6 +502,59 @@ def user_authorisation():
     return redirect(return_url)
     
     
+@app.route('/deleteuser/<user_id>')
+def delete_user(user_id):
+    
+    """Deletes a user from the users collection."""
+    
+    if g.admin:
+        users_coll.remove({"_id": ObjectId(user_id)})
+        users = users_coll.find()
+
+        return render_template("userauthorisation.html", users=users) 
+        
+    flash("Admin access only.")
+    return_url = '/'
+    
+    return redirect(return_url)
+    
+
+@app.route('/makeadmin/<user_id>')
+def make_admin(user_id):
+    
+    """Sets a user as an admin in the users collection."""
+    
+    if g.admin:
+        users_coll.update( {'_id': ObjectId(user_id)}, 
+            {'$set': {"admin": True}} )
+        users = users_coll.find()
+
+        return render_template("userauthorisation.html", users=users) 
+        
+    flash("Admin access only.")
+    return_url = '/'
+    
+    return redirect(return_url)
+
+
+@app.route('/makeuser/<user_id>')
+def make_user(user_id):
+    
+    """Sets a user as an admin in the users collection."""
+    
+    if g.admin:
+        users_coll.update( {'_id': ObjectId(user_id)}, 
+            {'$set': {"admin": False}} )
+        users = users_coll.find()
+
+        return render_template("userauthorisation.html", users=users) 
+        
+    flash("Admin access only.")
+    return_url = '/'
+    
+    return redirect(return_url)
+    
+
 @app.route('/recipeadmin')
 def recipe_overview():
     

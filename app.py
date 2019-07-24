@@ -55,8 +55,9 @@ def before_request():
     """Sets global user for access control."""
     
     g.user = None
+    g.name = None
     g.admin = None
-    if 'user' in session:
+    if 'email' and 'user' in session:
         g.user = session['email']
         g.name = session['user']
     if 'type' in session:
@@ -76,13 +77,13 @@ def register():
         
         if request.form.get('psswd1') == request.form.get('psswd2'):
             password = generate_password_hash(request.form.get('psswd1'))
-        registration = {
+        users_coll.insert_one({
             "email": request.form.get('email'),
             "username": request.form.get('username'),
             "password": password,
-            "admin": False}
-        users_coll.insert_one(registration)
+            "admin": False})
         session['user'] = request.form.get('username')
+        session['email'] = request.form.get('email')
         
         return redirect(url_for("index"))
     

@@ -38,15 +38,19 @@
 </div>
 
 <div class="row  page">
-    <div class="col-xs-12">
-        <label for="prep_time">Preparation time (Hrs, Mins)</label>
+    <div class="col-xs-3  col-sm-2">
+        <label for="prep_time">Preparation time</label>
+    </div>
+    <div class="col-xs-9  col-sm-10">
         <input type="number" name="prep_time_hrs"> Hrs
         <input type="number" name="prep_time_mins" max="59"> Mins
     </div>
 </div>
 <div class="row  page">
-    <div class="col-xs-12">
-        <label for="cook_time">Cooking time (Hrs, Mins)</label>
+    <div class="col-xs-3  col-sm-2">
+        <label for="cook_time">Cooking time</label>
+    </div>
+    <div class="col-xs-9  col-sm-10">    
         <input type="number" name="cook_time_hrs"> Hrs
         <input type="number" name="cook_time_mins" max="59"> Mins
     </div>
@@ -141,9 +145,9 @@
 </div>
 
 <div class="row  page">
-    <div class="col-xs-12">
-        <input type="hidden" id="author" name="author" value="{{ session['email'] }}">
+    <div class="col-xs-offset-10  col-xs-2  padding-20">
         <input class="submit" type="submit" value="Add recipe">
+        <input type="hidden" id="author" name="author" value="{{ session['email'] }}">
     </div>
 </div>
 

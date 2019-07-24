@@ -118,6 +118,18 @@ a {
   padding-bottom: 20px;
 }
 
+.padding-l-10 {
+  padding-left: 10px;
+}
+
+.inline {
+  display: inline;
+}
+
+.spacer {
+  min-height: 75vh;
+}
+
 /* ----- TITLES, HEADINGS AND TEXT ---------------------------- */
 .page-title {
   font-family: 'Bad Script', cursive;
@@ -260,6 +272,9 @@ input[type=submit] {
   border: none;
 }
 
+/* 
+.pwrd is a class to target passwords with JavaScript 
+*/
 .navbar {
   margin-bottom: 0;
   border: none;
@@ -395,9 +410,5 @@ input[type=submit] {
 .top {
   opacity: 1;
   z-index: 2;
-}
-
-.spacer {
-  min-height: 65vh;
 }
 /*# sourceMappingURL=main.css.map */

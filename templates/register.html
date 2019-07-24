@@ -1,34 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<section class="container-fluid">
+<div class="row  page  spacer">
     <form method="POST" action="/register">
-        <div class="form-group  row">
-            <div class="col-xs-12">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+        <div class="form-group  row  page">
+            <div class="col-xs-offset-2  col-xs-10">
+                <label for="email" class="padding-20">Email address</label>
+                <input type="email" class="form-control  input  padding-10" name="email" id="email" placeholder="Email" required>
                 <p class="help-block">We'll never share your email address with anyone.</p>
             </div>
         </div>
-        <div class="form-group  row">
-            <div class="col-xs-12">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+        <div class="form-group  row  page">
+            <div class="col-xs-offset-2  col-xs-10">
+                <label for="username" class="padding-20">Username</label>
+                <input type="text" class="form-control  input  padding-10" name="username" id="username" placeholder="Username" required>
             </div>
         </div>
-        <div class="form-group  row">
-            <div class="col-xs-12">
-                <label for="psswd1">Password</label>
-                <span onclick="hideShowPassword()"><i class="far fa-eye" ></i></span>
-                <input type="password" class="pwrd form-control" id="pwrd" name="psswd1" placeholder="Password" required>
+        <div class="form-group  row  page">
+            <div class="col-xs-offset-2  col-xs-10">
+                <label for="psswd1" class="padding-20">Password</label><br>
+                <input type="password" class="pwrd  form-control  input  inline  padding-10" id="pwrd" name="psswd1" placeholder="Password" required>
+                <span onclick="hideShowPassword()"><i class="far fa-eye  padding-l-10" ></i></span>
             </div>
-            <div class="col-xs-12">
-                <label for="psswd2">Please re-enter your password</label>
-                <input type="password" class="form-control pwrd" name="psswd2" placeholder="Password" required>
+            <div class="col-xs-offset-2  col-xs-10">
+                <label for="psswd2" class="padding-20">Please re-enter your password</label>
+                <input type="password" class="pwrd  form-control  input  padding-10" name="psswd2" placeholder="Password" required>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <div class="form-group  row  page">
+            <div class="col-xs-offset-10  col-xs-2">
+                <input type="submit" value="Submit">
+            </div>
+        </div> 
     </form>
-</section>
+</div>
 
 {% endblock %}

@@ -61,20 +61,8 @@ input[type=submit] {
   background-color: $parchment;
 }
 
-.input{
+.input {
   width: 80%;
-  @include large-phone {
-    width: 100%;
-}
-@include tablet {
-    width: 100%;
-}
-@include desktop {
-    width: 100%;
-}
-@include large-desktop {
-    width: 100%;
-}
 }
 
 .no-border {

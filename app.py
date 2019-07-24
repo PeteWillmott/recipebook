@@ -468,11 +468,17 @@ def recipe_authorisation():
     """Display, edit, and authorise, the unauthorised recipes."""
     
     if g.admin:
-        unauthorised = recipe_coll.find({"authorisation": "not"})
-        authorised = recipe_coll.find({"authorisation": "allowed"})
-        users = users_coll.find()
+        count = recipe_coll.count_documents({"authorisation": "not"})
+        if count > 0:
+            unauthorised = recipe_coll.find({"authorisation": "not"})
+            authorised = recipe_coll.find({"authorisation": "allowed"})
+            users = users_coll.find()
         
-        return render_template("recipeauthorisation.html", unauthorised=unauthorised, authorised=authorised, users=users)
+            return render_template("recipeauthorisation.html", unauthorised=unauthorised, authorised=authorised, users=users)
+            
+        else:
+
+            return render_template("recipeauthorisation.html")
     
     flash("Admin access only.")
     return_url = '/'

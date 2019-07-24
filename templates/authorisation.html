@@ -1,21 +1,26 @@
 {% block content %}
 
-<div class="row  page">
+<div class="row  page  spacer">
     <div class="col-xs-12">
         
-        {% for recipe in unauthorised %}
-            
+        {% if unauthorised %}
+            {% for recipe in unauthorised %}
+               
                 <h4><a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe | title }}</a></h4>
                 <p>{{ recipe.summary }}</p>
                 <p>{{ recipe.username }}</p>
-                
+
                 {% if loop.index < loop.length %}
-            
+                
                     <hr>
                 
-                {% endif %}
-                
-        {% endfor %}
+                {% endif %} 
+            {% endfor %}
+        {% else %}
+            
+            <p>No unauthorised recipes.</p>
+
+        {% endif %}
 
     </div>
 </div>

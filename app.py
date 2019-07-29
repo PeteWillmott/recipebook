@@ -7,6 +7,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from bson.son import SON
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -36,6 +37,33 @@ def hrs_to_mins (time_hrs):
     else:
         time_mins = 0
     return time_mins
+
+def is_admin(f):
+    @wraps(f)
+    def admin_test(*args, **kwargs):
+        if not g.admin:
+            flash("You must be an Admin to access these functions.")
+            return_url = request.referrer or '/'
+
+            return redirect(return_url)
+    
+        return f(*args, **kwargs)
+    
+    return admin_test
+
+
+def is_user(f):
+    @wraps(f)
+    def user_test(*args, **kwargs):
+        if not g.user:
+            flash("You must be logged in to access these functions.")
+            return_url = request.referrer or '/'
+
+            return redirect(return_url)
+    
+        return f(*args, **kwargs)
+
+    return user_test
 
 # routes
 
@@ -112,6 +140,7 @@ def login():
     
     
 @app.route('/logout', methods=['POST'])
+@is_user
 def logout():
     
     """Log out function, clears the user from the session"""
@@ -230,165 +259,149 @@ def recipe(recipe_id):
     
 
 @app.route('/vote', methods=['POST'])
+@is_user
 def vote():
 
     """Add a like to the recipe, note user id to disallow multiple likes."""
     
-    if g.user:
-        if request.method == 'POST':
-            recipeID = request.form.get('recipeID')
-            votes = request.form.get('votes')
-            vote_total = int(votes) + 1
-            voted_check = users_coll.find_one({
-                'email': g.user,
-                'voted': ObjectId(recipeID)})
-            if voted_check:
-                flash("You have already liked this recipe.")
-                
-                return redirect (url_for('recipe', recipe_id=recipeID))
-                
-            else:
-                recipe_coll.update({"_id": ObjectId(recipeID)}, {'$set': {'votes': vote_total}})
-                users_coll.update({'email': g.user}, {'$push': {'voted':ObjectId(recipeID)}})
+    if request.method == 'POST':
+        recipeID = request.form.get('recipeID')
+        votes = request.form.get('votes')
+        vote_total = int(votes) + 1
+        voted_check = users_coll.find_one({
+            'email': g.user,
+            'voted': ObjectId(recipeID)})
+        if voted_check:
+            flash("You have already liked this recipe.")
+            
+            return redirect (url_for('recipe', recipe_id=recipeID))
+            
+        else:
+            recipe_coll.update({"_id": ObjectId(recipeID)}, {'$set': {'votes': vote_total}})
+            users_coll.update({'email': g.user}, {'$push': {'voted':ObjectId(recipeID)}})
             
     return redirect (url_for('recipe', recipe_id=recipeID))
 
 
 @app.route('/add_favourite', methods=['POST'])
+@is_user
 def add_favourite():
     
     """Add a recipe as a favourite."""
     
-    if g.user:
-        if request.method == 'POST':
-            recipeID = request.form.get('recipeID')
-            users_coll.update({'email': g.user}, {'$push': {'favourites':recipeID}})
+    if request.method == 'POST':
+        recipeID = request.form.get('recipeID')
+        users_coll.update({'email': g.user}, {'$push': {'favourites':recipeID}})
     
     return redirect (url_for('recipe', recipe_id=recipeID))
     
 
 @app.route('/favourites')
+@is_user
 def display_favourites():
     
     """List preset favourites, with link to the recipe(s)."""
     
-    if g.user:
-        user = users_coll.find_one({'email': g.user})
-        recipes = recipe_coll.find({"authorisation": "allowed"})
-        
-        return render_template("favourites.html", user=user, recipes=recipes)
-        
-    flash("You need to be logged in to see your favourites.")
-    return_url =  '/'
+    user = users_coll.find_one({'email': g.user})
+    recipes = recipe_coll.find({"authorisation": "allowed"})
     
-    return redirect(return_url)
+    return render_template("favourites.html", user=user, recipes=recipes)
 
 
 @app.route('/addnote/<recipe_id>', methods=['GET', 'POST'])
+@is_user
 def add_note(recipe_id):
     
-    """Annotates the recipe with user eneterd text."""
+    """Annotates the recipe with user enterd text."""
     
-    if g.user:
-        if request.method == 'POST':
-            recipeID = request.form.get('recipeID')
-            content = request.form.get('note_content')
-            
-            users_coll.update({'email': g.user}, 
-                {'$push': 
-                    {'notes.id':recipeID, 
-                    'notes.content': content}})
-            the_recipe =  recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-            the_user = users_coll.find_one({"notes.id": recipe_id, 'email': g.user})
-
-            return render_template('recipe.html', recipe=the_recipe, user=the_user)
+    if request.method == 'POST':
+        recipeID = request.form.get('recipeID')
+        content = request.form.get('note_content')
         
+        users_coll.update({'email': g.user}, 
+            {'$push': 
+                {'notes.id':recipeID, 
+                'notes.content': content}})
         the_recipe =  recipe_coll.find_one({"_id": ObjectId(recipe_id)})
         the_user = users_coll.find_one({"notes.id": recipe_id, 'email': g.user})
-        return render_template('addnote.html', recipe=the_recipe, user=the_user)
+
+        return render_template('recipe.html', recipe=the_recipe, user=the_user)
     
-    return redirect (url_for('browse'))
+    the_recipe =  recipe_coll.find_one({"_id": ObjectId(recipe_id)})
+    the_user = users_coll.find_one({"notes.id": recipe_id, 'email': g.user})
+
+    return render_template('addnote.html', recipe=the_recipe, user=the_user)
     
     
 @app.route('/notes')
+@is_user
 def display_notes():
     
     """Displays all the users notes."""
     
-    if g.user:
-        notes = users_coll.find({"email": g.user}, {'notes.content': 1, 'notes.id': 1})
-        
-        return render_template("notes.html", notes=notes)
+    notes = users_coll.find({"email": g.user}, {'notes.content': 1, 'notes.id': 1})
     
-    flash("You must be logged in to view your recipe notes")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("notes.html", notes=notes)
     
     
 @app.route('/addrecipe', methods=['GET', 'POST'])
+@is_user
 def add_recipe():
     
     """Adds a recipe to the database. Member only area, login required"""
     
-    if g.user:
-        if request.method == 'POST':
-            
-            ingredient_list = []
-            instruction_list = []
-            ingredient_data = request.form.getlist('ingredient')
-            instruction_data = request.form.getlist('instruction')
-            for value in ingredient_data:
-                ingredient_list.append(value)
-            for value in instruction_data:
-                instruction_list.append(value)
+    if request.method == 'POST':
         
-            prep_time1 = request.form.get('prep_time_hrs')
-            prep_time2 = request.form.get('prep_time_mins')
-            cook_time1 = request.form.get('cook_time_hrs')
-            cook_time2 = request.form.get('cook_time_mins')
-            prep_time = hrs_to_mins(prep_time1)
-            prep_time += int(prep_time2)
-            cook_time = hrs_to_mins(cook_time1)
-            cook_time += int(cook_time2)
-            total_time = prep_time + cook_time
-
-            category = request.form.get('category')
-            if category is None:
-                category = "omni"
-            
-            recipe_coll.insert_one({
-                "recipe": request.form.get('recipe'), 
-                "prep_time": prep_time, 
-                "cook_time": cook_time, 
-                "total_time": total_time,  
-                "category": category, 
-                "url": request.form.get('url'), 
-                "type": request.form.get('type'), 
-                "allergens": request.form.get('allergen'), 
-                "ingredients": ingredient_list,
-                "instructions": instruction_list, 
-                "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", 
-                "author": request.form.get('author'), 
-                "summary": request.form.get('summary'), "votes": "0"})
-            user =users_coll.find_one({'email': g.user})
-            recipes = recipe_coll.find({"authorisation": "allowed"}) 
-             
-            return render_template("browse.html", user=user, recipes=recipes)
-       
-        return render_template("addrecipe.html", allergens=allergens, types=types)
-        
-    flash("Please log in to use this feature")
-    return_url = '/'
+        ingredient_list = []
+        instruction_list = []
+        ingredient_data = request.form.getlist('ingredient')
+        instruction_data = request.form.getlist('instruction')
+        for value in ingredient_data:
+            ingredient_list.append(value)
+        for value in instruction_data:
+            instruction_list.append(value)
     
-    return redirect(return_url)
+        prep_time1 = request.form.get('prep_time_hrs')
+        prep_time2 = request.form.get('prep_time_mins')
+        cook_time1 = request.form.get('cook_time_hrs')
+        cook_time2 = request.form.get('cook_time_mins')
+        prep_time = hrs_to_mins(prep_time1)
+        prep_time += int(prep_time2)
+        cook_time = hrs_to_mins(cook_time1)
+        cook_time += int(cook_time2)
+        total_time = prep_time + cook_time
+
+        category = request.form.get('category')
+        if category is None:
+            category = "omni"
+        
+        recipe_coll.insert_one({
+            "recipe": request.form.get('recipe'), 
+            "prep_time": prep_time, 
+            "cook_time": cook_time, 
+            "total_time": total_time,  
+            "category": category, 
+            "url": request.form.get('url'), 
+            "type": request.form.get('type'), 
+            "allergens": request.form.get('allergen'), 
+            "ingredients": ingredient_list,
+            "instructions": instruction_list, 
+            "difficulty": request.form.get('difficulty', type=int), "spicyness": request.form.get('spicyness', type=int), "authorisation": "not", 
+            "author": request.form.get('author'), 
+            "summary": request.form.get('summary'), "votes": "0"})
+        user =users_coll.find_one({'email': g.user})
+        recipes = recipe_coll.find({"authorisation": "allowed"}) 
+            
+        return render_template("browse.html", user=user, recipes=recipes)
+       
+    return render_template("addrecipe.html", allergens=allergens, types=types)
     
     
 @app.route('/editrecipe/<recipe_id>', methods=['GET', 'POST'])
+@is_user
 def edit_recipe(recipe_id):
     
     """Allows editing of recipes that user entered into the database"""
-    
     
     recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
     if g.user == recipe['author'] or g.admin:    
@@ -449,144 +462,102 @@ def update_recipe(recipe_id):
  
 
 @app.route('/admin')
+@is_admin
 def admin():
     
     """Entry point for admin functions."""
     
-    if g.admin:
-        
-        return render_template("admin.html")
-        
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("admin.html")
 
     
 @app.route('/recipeauthorisation', methods=['GET', 'POST'])
+@is_admin
 def recipe_authorisation():
     
     """Display, edit, and authorise, the unauthorised recipes."""
     
-    if g.admin:
-        count = recipe_coll.count_documents({"authorisation": "not"})
-        if count > 0:
-            unauthorised = recipe_coll.find({"authorisation": "not"})
-            authorised = recipe_coll.find({"authorisation": "allowed"})
-            users = users_coll.find()
+    
+    count = recipe_coll.count_documents({"authorisation": "not"})
+    if count > 0:
+        unauthorised = recipe_coll.find({"authorisation": "not"})
+        authorised = recipe_coll.find({"authorisation": "allowed"})
+        users = users_coll.find()
+    
+        return render_template("recipeauthorisation.html", unauthorised=unauthorised, authorised=authorised, users=users)
         
-            return render_template("recipeauthorisation.html", unauthorised=unauthorised, authorised=authorised, users=users)
-            
-        else:
+    else:
 
-            return render_template("recipeauthorisation.html")
-    
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+        return render_template("recipeauthorisation.html")
     
 
 @app.route('/userauthorisation')
+@is_admin
 def user_authorisation():
     
     """Displays user details. Allows a user to be set as an admin, removed or user records edited."""
     
-    if g.admin:
-        users = users_coll.find()
-        
-        return render_template("userauthorisation.html", users=users)
-        
-    flash("Admin access only.")
-    return_url = '/'
     
-    return redirect(return_url)
+    users = users_coll.find()
+    
+    return render_template("userauthorisation.html", users=users)
     
     
 @app.route('/deleteuser/<user_id>')
+@is_admin
 def delete_user(user_id):
     
     """Deletes a user from the users collection."""
     
-    if g.admin:
-        users_coll.remove({"_id": ObjectId(user_id)})
-        users = users_coll.find()
+    users_coll.remove({"_id": ObjectId(user_id)})
+    users = users_coll.find()
 
-        return render_template("userauthorisation.html", users=users) 
-        
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("userauthorisation.html", users=users) 
     
 
 @app.route('/makeadmin/<user_id>')
+@is_admin
 def make_admin(user_id):
     
     """Sets a user as an admin in the users collection."""
     
-    if g.admin:
-        users_coll.update( {'_id': ObjectId(user_id)}, 
-            {'$set': {"admin": True}} )
-        users = users_coll.find()
+    users_coll.update( {'_id': ObjectId(user_id)}, 
+        {'$set': {"admin": True}} )
+    users = users_coll.find()
 
-        return render_template("userauthorisation.html", users=users) 
-        
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("userauthorisation.html", users=users) 
 
 
 @app.route('/makeuser/<user_id>')
+@is_admin
 def make_user(user_id):
     
     """Sets a user as an admin in the users collection."""
     
-    if g.admin:
-        users_coll.update( {'_id': ObjectId(user_id)}, 
-            {'$set': {"admin": False}} )
-        users = users_coll.find()
+    users_coll.update( {'_id': ObjectId(user_id)}, 
+        {'$set': {"admin": False}} )
+    users = users_coll.find()
 
-        return render_template("userauthorisation.html", users=users) 
-        
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("userauthorisation.html", users=users) 
     
 
 @app.route('/recipeadmin')
+@is_admin
 def recipe_overview():
     
     """Overview of recipes."""
     
-    if g.admin:
-        authorised = recipe_coll.find({"authorisation": "allowed"})
-        
-        return render_template("recipeadmin.html", authorised=authorised)
+    authorised = recipe_coll.find({"authorisation": "allowed"})
     
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    return render_template("recipeadmin.html", authorised=authorised)
 
 
 @app.route('/recipeadmin/<recipe_id>')
+@is_admin
 def delete_recipe(recipe_id):    
     
     """Admin funcction to remove recipe from the database"""
     
-    if g.admin:
-        recipe_coll.remove({"_id": ObjectId(recipe_id)})
-        return_url = '/admin'
-    
-        return redirect(return_url)
-        
-    flash("Admin access only.")
-    return_url = '/'
-    
-    return redirect(return_url)
+    recipe_coll.remove({"_id": ObjectId(recipe_id)})
     
 
 if __name__ == '__main__':

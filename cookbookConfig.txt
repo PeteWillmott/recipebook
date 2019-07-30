@@ -1,2 +1,0 @@
-MONGO_URI="mongodb+srv://pete:blackVendelraindrop@cluster0-3jz2e.mongodb.net/project?retryWrites=true"
-SECRET_KEY="NOTTHATSECRETAFTERALL"

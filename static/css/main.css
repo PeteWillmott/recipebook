@@ -268,6 +268,58 @@ input[type=submit] {
   width: 80%;
 }
 
+@media (min-width: 600px) and (max-width: 767px) {
+  .input {
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .input {
+    width: 80%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .input {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .input {
+    width: 50%;
+  }
+}
+
+.full-input {
+  width: 100%;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .full-input {
+    width: 90%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .full-input {
+    width: 80%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .full-input {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .full-input {
+    width: 50%;
+  }
+}
+
 .no-border {
   border: none;
 }
@@ -348,7 +400,7 @@ input[type=submit] {
 
 @media (min-width: 600px) and (max-width: 767px) {
   .user-image-small {
-    max-width: 190px;
+    max-width: 150px;
   }
 }
 
@@ -372,10 +424,33 @@ input[type=submit] {
 
 .user-image {
   display: block;
-  max-width: 500px;
-  max-height: 350px;
+  max-width: 190px;
   width: auto;
   height: auto;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .user-image {
+    max-width: 220px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .user-image {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .user-image {
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .user-image {
+    max-width: 500px;
+  }
 }
 
 .no-dot {

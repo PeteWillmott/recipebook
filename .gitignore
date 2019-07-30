@@ -6,4 +6,7 @@ attribution.txt
 tabbedsearch.html
 schema.txt
 .env
-
+env/
+txt/
+__pycache__
+.vscode

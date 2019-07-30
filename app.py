@@ -204,6 +204,7 @@ def search_results():
         elif 'type'in key:
             type_list.append(form_data[key])
             recipe_type = True
+    recipe_type = False
 
     ing = request.form.get('ingredient')
     if ing is None:
@@ -239,6 +240,12 @@ def search_results():
              "total_time": {'$lte': time}})
 
     return render_template("searchresults.html", recipes=recipes)
+
+
+@app.route('/test')
+def test():
+    votes = recipe_coll.find({"authorisation": "allowed"}).sort("votes", pymongo.DESCENDING).limit(4)
+    return render_template("test.html", votes=votes)
 
 
 @app.route('/browse', methods=['GET', 'POST'])

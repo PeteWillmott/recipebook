@@ -54,15 +54,45 @@ input[type=submit] {
 }
 
 .text-input {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid $ink;
-  background-color: $parchment;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid $ink;
+    background-color: $parchment;
 }
 
 .input {
-  width: 80%;
+    width: 80%;
+
+    @include large-phone {
+    width: 80%;
+    }
+    @include tablet {
+      width: 80%;
+    }
+    @include desktop {
+      width: 60%;
+    }
+    @include large-desktop {
+      width: 50%;
+    }
+}
+
+.full-input {
+    width: 100%;
+
+    @include large-phone {
+    width: 90%;
+    }
+    @include tablet {
+    width: 80%;
+    }
+    @include desktop {
+      width: 60%;
+    }
+    @include large-desktop {
+      width: 50%;
+    }
 }
 
 .no-border {

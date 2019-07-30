@@ -14,7 +14,7 @@
     max-width: 95px;
     
     @include large-phone {
-        max-width: 190px;
+        max-width: 150px;
     }
     @include tablet {
         max-width: 200px;
@@ -29,8 +29,20 @@
 
 .user-image {
     display: block;
-    max-width:500px;
-    max-height:350px;
+    max-width:190px;
     width: auto;
     height: auto;
+
+    @include large-phone {
+        max-width: 220px;
+    }
+    @include tablet {
+        max-width: 300px;
+    }
+    @include desktop {
+        max-width: 400px;
+    }
+    @include large-desktop {
+        max-width: 500px;
+    }
 }

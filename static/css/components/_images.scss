@@ -46,3 +46,23 @@
         max-width: 500px;
     }
 }
+
+.browse-image {
+    display: block;
+    max-height:190px;
+    width: auto;
+    height: auto;
+
+    @include large-phone {
+        max-height: 200px;
+    }
+    @include tablet {
+        max-height: 250px;
+    }
+    @include desktop {
+        max-height: 300px;
+    }
+    @include large-desktop {
+        max-height: 350px;
+    }
+}

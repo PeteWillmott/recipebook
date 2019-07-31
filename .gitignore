@@ -10,3 +10,4 @@ env/
 txt/
 __pycache__
 .vscode
+app.pyc

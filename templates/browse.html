@@ -10,31 +10,31 @@
 <div class="row  page  spacer">
     <div class="col-xs-12">
         <ul id="cards" class="cards">
-        
+
             {% for recipe in recipes %}
                 {% if loop.index == 1 %}
-                
+
                     <li class="card  top">
                         <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
                             <h3 class="recipe-title">{{ recipe.recipe }}
-                            
+
                             {% if g.user %}
                                 {% for votes in user.voted %}
                                     {% if votes == recipe._id | string %}
-                                        
+
                                         <i class="far fa-thumbs-up  pull-right  padding-10"></i>
-                                    
+
                                     {% endif %}
                                 {% endfor %}
                                 {% for faves in user.favourites%}
                                     {% if faves == recipe._id | string %}
-                                    
+
                                         <i class="fas fa-star  pull-right  padding-10"></i>
-                                    
+
                                     {% endif %}
                                 {%endfor%}
                             {% endif %}
-                            
+
                             </h3>
                         </a>
                         <p class="recipe-text  sentence-case  padding-20">{{ recipe.summary }}</p>
@@ -50,30 +50,30 @@
                         {% endif %}
 
                     </li>
-                
+
                 {% else %}
-                
+
                     <li class="card">
                         <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
                             <h3 class="recipe-title">{{ recipe.recipe }}
-                            
+
                             {% if g.user %}
                                 {% for votes in user.voted %}
                                     {% if votes == recipe._id | string %}
-                                        
+
                                         <i class="far fa-thumbs-up  pull-right  padding-10"></i>
-                                    
+
                                     {% endif %}
                                 {% endfor %}
                                 {% for faves in user.favourites%}
                                     {% if faves == recipe._id | string %}
-                                    
+
                                         <i class="fas fa-star  pull-right  padding-10"></i>
-                                    
+
                                     {% endif %}
                                 {%endfor%}
                             {% endif %}
-                            
+
                             </h3>
                         </a>
                         <p class="recipe-text  sentence-case  padding-20">{{ recipe.summary }}</p>
@@ -89,12 +89,10 @@
                         {% endif %}
 
                     </li>
-                
+
                 {%  endif%}
-            
-            
             {% endfor %}
-        
+
         </ul>
     </div>
 </div>

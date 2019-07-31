@@ -20,7 +20,7 @@
 
                     {% else %}
 
-                        <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  user-image-small  padding-10">
+                        <img src="{{ url_for('static', filename='images/default.png') }}" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  user-image-small  padding-10">
 
                     {% endif %}
 

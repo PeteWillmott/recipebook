@@ -45,7 +45,7 @@
 
                         {% else %}
 
-                            <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10  browse-image">
+                            <img src="{{ url_for('static', filename='images/default.png') }}" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10  browse-image">
 
                         {% endif %}
 
@@ -84,7 +84,7 @@
 
                         {% else %}
 
-                            <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10  browse-image">
+                            <img src="{{ url_for('static', filename='images/default.png') }}" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  padding-10  browse-image">
 
                         {% endif %}
 
@@ -101,13 +101,13 @@
 
 <div class="row  page  padding-20">
     <div class="col-xs-6">
-        <button class="browse-button" id="previous">Previous</button>
+        <button class="browse-button" id="previous" onclick="previousCard()">Previous</button>
     </div>
     <div class="col-xs-6">
-        <button class="browse-button  pull-right" id="next">Next</button>
+        <button class="browse-button  pull-right" id="next" onclick="nextCard()">Next</button>
     </div>
 </div>
 
-<script type="text/javascript" src="../static/js/recipeCard.js"></script>
+<script src="{{ url_for('static', filename='js/recipeCard.js') }}"></script>
 
 {% endblock %}

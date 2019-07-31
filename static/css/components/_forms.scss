@@ -23,7 +23,7 @@
   background: $gold; 
   cursor: pointer; 
 }
-                                            
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; 
   appearance: none;
@@ -98,7 +98,3 @@ input[type=submit] {
 .no-border {
   border: none;
 }
-
-/* 
-.pwrd is a class to target passwords with JavaScript 
-*/

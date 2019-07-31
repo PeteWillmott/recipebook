@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pete's Cookbook</title>
-    <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/main.css" type="text/css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../static/images/logo30.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo30.png') }}">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-        <a class="navbar-brand" href="{{ url_for('index') }}"><img src="../static/images/logo30.png"></img></a>
+        <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo30.png') }}" alt="Logo image - Homepage Link"></a>
         </div>
         
         <div class="collapse  navbar-collapse" id="recipe-navbar-collapse">
@@ -73,8 +73,6 @@
             
         </div>
     </section>
-    
-    
 
     <main class="container-fluid  cover">
         
@@ -90,7 +88,7 @@
 
         {% if request.path !="/register" %}
 
-            <section id="login  margin-10  cover">
+            <section id="login" class="margin-10  cover">
                 <div class="row padding-10">
                     
                 {% if g.user %}
@@ -106,11 +104,11 @@
                     <form method="POST" action="/login">
                         <div class="col-xs-4  col-sm-5  form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input type="email" class="full-input" name="email" placeholder="Email" />
+                            <input type="email" class="full-input" id="email" name="email" placeholder="Email" />
                         </div>
                         <div class="col-xs-5  col-sm-5  form-group">
                             <label for="password" class="sr-only">Password</label>
-                            <input type="password" class="input  pwrd" name="password" placeholder="Password" />
+                            <input type="password" class="input  pwrd" id="password" name="password" placeholder="Password" />
                             <span onclick="hideShowPassword()"><i class="far fa-eye  gold"></i></span>
                         </div>
                         <div class="col-xs-3  col-sm-2  form-group">
@@ -161,11 +159,11 @@
         </footer>
     
     
-    <script type="text/javascript" src="../static/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" data-auto-replace-svg="nest"></script>
-    <script type="text/javascript" src="../static/js/index.js"></script>
-    <script type="text/javascript">
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script>
         $(function () {
           $('[data-toggle="tooltip"]').tooltip();
         });

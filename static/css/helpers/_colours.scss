@@ -1,36 +1,5 @@
 /* ----- COLOURS ----------------------- */
 
-/* Coolors Exported Palette - coolors.co/aa5922-a56749-dac8b8-592f10-8c461d */
-
-/* RGB - LEATHER 
-$color1: rgba(170, 89, 34, 1);
-$color2: rgba(165, 103, 73, 1);
-$color3: rgba(218, 200, 184, 1);
-$color4: rgba(89, 47, 16, 1);
-$color5: rgba(140, 70, 29, 1);
-*/
-
-/* Coolors Exported Palette - coolors.co/eaeacb-dfd4a3-dac8b8-592f10-8c461d */
-
-/* RGB PARCHMENT 
-$color1: rgba(234, 234, 203, 1);
-$color2: rgba(223, 212, 163, 1);
-$color3: rgba(218, 200, 184, 1);
-$color4: rgba(89, 47, 16, 1);
-$color5: rgba(140, 70, 29, 1);
-*/
-
-/* Coolors Exported Palette - coolors.co/dbd6d0-8c837a-352e26-a78057-bcb2a8 */
-
-/* RGB INK & PAPER 
-$color1: rgba(219, 214, 208, 1);
-$color2: rgba(140, 131, 122, 1);
-$color3: rgba(53, 46, 38, 1);
-$color4: rgba(167, 128, 87, 1);
-$color5: rgba(188, 178, 168, 1);
-*/
-
-
 $facebook: #3b5998;
 $youtube: #ff0000;
 $twitter: #1da1f2;
@@ -42,7 +11,6 @@ $ink: rgb(53, 46, 38);
 $leather: rgb(170, 89, 34);
 $gold: rgb(255,215,0);
 $bluegrey: rgb(218, 200, 184);
-
 
 .cover {
     background-color: $leather;
@@ -56,15 +24,3 @@ $bluegrey: rgb(218, 200, 184);
 .warning {
     color: $red !important;
 }
-
-
-/*
-* {
-  background: #000 !important;
-  color: #0f0 !important;
-  outline: solid #f00 1px !important;
-}
-*/
-
-
-

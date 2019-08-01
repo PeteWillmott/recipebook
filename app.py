@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import os
 import pymongo
+import pprint
 
 app = Flask(__name__)
 
@@ -269,9 +270,11 @@ def recipe(recipe_id):
     """Display the selected recipe."""
 
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-    the_user = users_coll.find_one({"notes.id": recipe_id, 'email': g.user})
+    rcode = the_recipe["recipe_code"]
+    the_user = users_coll.find_one({'email': g.user})
+    note = the_user[str(rcode)]
 
-    return render_template('recipe.html', recipe=the_recipe, user=the_user)
+    return render_template('recipe.html', recipe=the_recipe, user=the_user, note=note)
 
 
 @app.route('/vote', methods=['POST'])
@@ -333,25 +336,25 @@ def add_note(recipe_id):
 
     """Annotates the recipe with user enterd text."""
 
+    the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
+    rcode = the_recipe["recipe_code"]
+    notes = users_coll.find_one({'email': g.user})
+    
+    
     if request.method == 'POST':
-        recipeID = request.form.get('recipeID')
         content = request.form.get('note_content')
-
+        content = str(content)
         users_coll.update(
             {'email': g.user},
-            {'$push':
-             {'notes.id': recipeID,
-              'notes.content': content}})
-        the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-        the_user = users_coll.find_one(
-            {"notes.id": recipe_id, 'email': g.user})
+            {'$set':
+             {rcode: content}})
+        notes = users_coll.find_one({'email': g.user})
+        note = notes[str(rcode)]
+        
+        return render_template('recipe.html', recipe=the_recipe, user=notes, note=note)
 
-        return render_template('recipe.html', recipe=the_recipe, user=the_user)
-
-    the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-    the_user = users_coll.find_one({"notes.id": recipe_id, 'email': g.user})
-
-    return render_template('addnote.html', recipe=the_recipe, user=the_user)
+    note = notes[str(rcode)]
+    return render_template('addnote.html', recipe=the_recipe, note=note)
 
 
 @app.route('/notes')
@@ -398,8 +401,12 @@ def add_recipe():
         if category is None:
             category = "omni"
 
+        recipe = request.form.get('recipe')
+        rcode = recipe.replace()
+
         recipe_coll.insert_one({
-            "recipe": request.form.get('recipe'),
+            "recipe": recipe,
+            "recipe_code": rcode,
             "prep_time": prep_time,
             "cook_time": cook_time,
             "total_time": total_time,

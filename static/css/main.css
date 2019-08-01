@@ -13,6 +13,13 @@
   color: #cc3300 !important;
 }
 
+/*
+* {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  }
+  */
 /* ----- BUTTONS -------------------- */
 .browse-button {
   color: #352e26;

@@ -42,9 +42,8 @@ def is_admin(f):
     def admin_test(*args, **kwargs):
         if not g.admin:
             flash("You must be an Admin to access these functions.")
-            return_url = request.referrer or '/'
 
-            return redirect(return_url)
+            return redirect(url_for("index"))
 
         return f(*args, **kwargs)
 
@@ -56,9 +55,8 @@ def is_user(f):
     def user_test(*args, **kwargs):
         if not g.user:
             flash("You must be logged in to access these functions.")
-            return_url = request.referrer or '/'
 
-            return redirect(return_url)
+            return redirect(url_for("index"))
 
         return f(*args, **kwargs)
 
@@ -107,15 +105,18 @@ def register():
 
         if request.form.get('psswd1') == request.form.get('psswd2'):
             password = generate_password_hash(request.form.get('psswd1'))
-        users_coll.insert_one({
-            "email": request.form.get('email'),
-            "username": request.form.get('username'),
-            "password": password,
-            "admin": False})
-        session['user'] = request.form.get('username')
-        session['email'] = request.form.get('email')
+            users_coll.insert_one({
+                "email": request.form.get('email'),
+                "username": request.form.get('username'),
+                "password": password,
+                "admin": False})
+            session['user'] = request.form.get('username')
+            session['email'] = request.form.get('email')
 
-        return redirect(url_for("index"))
+            return redirect(url_for("index"))
+
+        else:
+            flash("The passwords must match")
 
     return render_template("register.html")
 

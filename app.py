@@ -270,11 +270,13 @@ def recipe(recipe_id):
     """Display the selected recipe."""
 
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-    rcode = the_recipe["recipe_code"]
+    #rcode = the_recipe["recipe_code"]
     the_user = users_coll.find_one({'email': g.user})
-    note = the_user[str(rcode)]
-
-    return render_template('recipe.html', recipe=the_recipe, user=the_user, note=note)
+    #note = the_user[str(rcode)]
+    #if note is None:
+        #return render_template('recipe.html', recipe=the_recipe, user=the_user)
+    #else:
+    return render_template('recipe.html', recipe=the_recipe, user=the_user)
 
 
 @app.route('/vote', methods=['POST'])
@@ -354,7 +356,7 @@ def add_note(recipe_id):
         return render_template('recipe.html', recipe=the_recipe, user=notes, note=note)
 
     note = notes[str(rcode)]
-    return render_template('addnote.html', recipe=the_recipe, note=note)
+    return render_template('addnote.html', recipe=the_recipe, notes=notes)
 
 
 @app.route('/notes')
@@ -470,11 +472,25 @@ def update_recipe(recipe_id):
             category = request.form.get('category')
             if category is None:
                 category = "omni"
+            
+            prep_time1 = request.form.get('prep_time_hrs')
+            prep_time2 = request.form.get('prep_time_mins')
+            cook_time1 = request.form.get('cook_time_hrs')
+            cook_time2 = request.form.get('cook_time_mins')
+            prep_time = hrs_to_mins(prep_time1)
+            prep_time += int(prep_time2)
+            cook_time = hrs_to_mins(cook_time1)
+            cook_time += int(cook_time2)
+            total_time = prep_time + cook_time
+
             recipe_coll.update(
                 {'_id': ObjectId(recipe_id)},
                 {'$set': {
                     'type': request.form.get('type'),
                     'category': category,
+                    "prep_time": prep_time,
+                    "cook_time": cook_time,
+                    "total_time": total_time,
                     'recipe': request.form.get('recipe'),
                     'ingredients': request.form.getlist('ingredient'),
                     'url': request.form.get('url'),

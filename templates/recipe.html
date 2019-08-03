@@ -53,7 +53,7 @@
             {% if recipe.url %}
 
                 <img src="{{ recipe.url }}" class="img-responsive  center-block  top-bottom-margin  user-image" alt="A picture of {{recipe.recipe | title }}">
-                
+
             {% else %}
 
                 <img src="../static/images/default.png" alt="{{ recipe.recipe | title}}" class="img-responsive  center-block  alpha-fade  top-bottom-margin  user-image">
@@ -102,11 +102,13 @@
     </div>
 
     {% if recipe.username %}
+    
         <div class="row  page">
             <div class="col-xs-12">
                 <p class="text-right">By {{ recipe.username | title }}</p>
             </div>
         </div>
+
     {% endif %}
 
 {% endblock %}

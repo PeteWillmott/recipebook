@@ -7,42 +7,42 @@
         <p>{{ user.email }}</p>
         
         {% if user.admin %}
-        
+
             <p>Admin</p>
 
         {% else %}
 
             <p>User</p>
-            
+
         {% endif %}
-        
+
         {% if loop.index < loop.length %}
-        
+
             <hr>
-        
+
         {% endif %}
-    
+
     </div>
     <div class="col-xs-4">
 
         <a href="{{ url_for('make_admin', user_id=user._id) }}">
             <p>Make Admin</p>
         </a>
-         
+
         <a href="{{ url_for('make_user', user_id=user._id) }}">
             <p>Make User</p>
         </a>
-        
+
         <a href="{{ url_for('delete_user', user_id=user._id) }}">
             <p>Delete</p>
         </a>
-    
+
         {% if loop.index < loop.length %}
-            
+
             <hr>
-            
+
         {% endif %}
-    
+
     </div>
 </div> 
 

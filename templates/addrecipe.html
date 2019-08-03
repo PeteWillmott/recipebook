@@ -46,6 +46,7 @@
         <input type="number" name="prep_time_mins" min="0" max="59"> Mins
     </div>
 </div>
+
 <div class="row  page">
     <div class="col-xs-3  col-sm-2">
         <label for="cook_time">Cooking time</label>
@@ -96,12 +97,14 @@
     <div class="col-xs-12" id="instructionContainer" name="instruction_listing">
     </div>
 </div>
+
 <div class="row  page">
     <div class="col-xs-12">
         <label for="instructions">Cooking instructions</label><br>
         <input type="text" class="form-control  text-input  no-submit" id="instruction" placeholder="Step 1" onKeydown="noSubmit('instruction', 'instructionContainer')">
     </div>
 </div>
+
 <div class="row  page">
     <div class="col-xs-12">
         <span onclick="addEntry('instruction', 'instructionContainer')"><p><i id="more_instructions" class="fas fa-plus-circle"></i> Click to add to instructions.</p></span>   
@@ -114,13 +117,16 @@
         <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="spicyness" name="spicyness">
     </div>
 </div>
+
 <div class="row  page">
     <div class="col-xs-3">
         <p><a href="#" data-toggle="tooltip" title="Not spicy or mild"><strong>0</strong></a></p>
     </div>
+
     <div class="col-xs-3">
         <p class="text-center"><a href="#" data-toggle="tooltip" title="medium"><i class="fas  fa-pepper-hot  icon"></i></a></p>
     </div>
+
     <div class="col-xs-3">
         <p class="text-right"><a href="#" data-toggle="tooltip" title="spicy"><i class="fas  fa-pepper-hot  icon"></i> <i class="fas  fa-pepper-hot  icon"></i></a></p>
     </div>
@@ -132,13 +138,16 @@
         <input type="range" class="custom-range  slider" min="1" max="3" step="1" id="difficulty" name="difficulty">
     </div>
 </div>
+
 <div class="row  page">
     <div class="col-xs-3">
         <p><a href="#" data-toggle="tooltip" title="easy"><i class="fas  fa-star  icon"></i></a></p>
     </div>
+
     <div class="col-xs-3">
         <p class="text-center"><a href="#" data-toggle="tooltip" title="medium dificulty"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
     </div>
+
     <div class="col-xs-3">
         <p class="text-right"><a href="#" data-toggle="tooltip" title="complicated"><i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i> <i class="fas  fa-star  icon"></i></a></p>
     </div>

@@ -10,22 +10,22 @@
 <div class="row  page  spacer">
     <div class="col-xs-12">
         <ul class="no-dot">
-        
+
             {% for recipe in recipes %}
                 {% for faves in user.favourites%}
                     {% if faves == recipe._id | string %}
-                    
+
                         <li>
                             <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
                                 <h3 class="recipe-title">{{ recipe.recipe }}</h3>
                             </a>
                             <p class="recipe-text">{{ recipe.summary }}</p>
                         </li>
-                    
+
                     {% endif %}
                 {% endfor %}
             {% endfor %}
-        
+
         </ul>
     </div>
 </div>

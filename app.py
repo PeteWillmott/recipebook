@@ -195,10 +195,10 @@ def search_results():
     for key in form_data:
         if 'allergen' in key:
             allergen_list.append(form_data[key])
-        elif 'type'in key:
+    for key in form_data:
+        if 'type'in key:
             type_list.append(form_data[key])
             recipe_type = True
-    recipe_type = False
 
     ing = request.form.get('ingredient')
     if ing is None:
@@ -233,7 +233,7 @@ def search_results():
              "difficulty": difficulty,
              "total_time": {'$lte': time}})
 
-    return render_template("searchresults.html", recipes=recipes)
+    return render_template("searchresults.html", recipes=recipes, recipe_type=recipe_type, cat_list=cat_list, allergen_list=allergen_list, type_list=type_list)
 
 
 @app.route('/browse', methods=['GET', 'POST'])
@@ -363,7 +363,7 @@ def add_recipe():
             category = "omni"
 
         recipe = request.form.get('recipe')
-        rcode = recipe.replace()
+        rcode = recipe.replace(" ", "")
 
         recipe_coll.insert_one({
             "recipe": recipe,
@@ -373,8 +373,6 @@ def add_recipe():
             "total_time": total_time,
             "category": category,
             "url": request.form.get('url'),
-            "type": request.form.get('type'),
-            "allergens": request.form.get('allergen'),
             "ingredients": ingredient_list,
             "instructions": instruction_list,
             "difficulty": request.form.get('difficulty', type=int),
@@ -382,7 +380,9 @@ def add_recipe():
             "authorisation": "not",
             "author": request.form.get('author'),
             "summary": request.form.get('summary'),
-            "votes": "0"})
+            "votes": "0"},
+            {"$push": {"type": [request.form.get('type')],
+            "allergens": [request.form.get('allergen')]}})
         user = users_coll.find_one({'email': g.user})
         recipes = recipe_coll.find({"authorisation": "allowed"})
 
@@ -441,10 +441,15 @@ def update_recipe(recipe_id):
             cook_time += int(cook_time2)
             total_time = prep_time + cook_time
 
+# db.collection.update({_id: pageId}, {$push: {values: dboVital}, $set: {endTime: time}});
+
+            recipe_coll.update(
+                {'_id': ObjectId(recipe_id)},
+                {'$push': {"type": [request.form.get('type')]}})
+                
             recipe_coll.update(
                 {'_id': ObjectId(recipe_id)},
                 {'$set': {
-                    'type': request.form.get('type'),
                     'category': category,
                     "prep_time": prep_time,
                     "cook_time": cook_time,
@@ -455,10 +460,9 @@ def update_recipe(recipe_id):
                     'summary': request.form.get('summary'),
                     'allergens': request.form.get('allergen'),
                     'instructions': request.form.getlist('instruction'),
-                    'spicyness': request.form.get('spicyness'),
-                    'difficulty': request.form.get('difficulty'),
-                    "authorisation": request.form.get('authorised')}})
-        the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
+                    'spicyness': request.form.get('spicyness', type=int),
+                    'difficulty': request.form.get('difficulty', type=int)}})
+            the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
 
         if g.admin:
 

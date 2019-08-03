@@ -3,7 +3,7 @@
 
     <div class="row  page">
         <div class="col-xs-8">
-    
+
             <h4><a href="{{ url_for('recipe', recipe_id=recipe._id) }}">{{ recipe.recipe }}</a></h4>
             <p>{{ recipe.summary }}</p>
             <p>{{ recipe.authorisation }}</p>
@@ -11,24 +11,24 @@
             <p>{{ recipe.author }}</p>
             
             {% if loop.index < loop.length %}
-            
+
                 <hr>
-                
+
             {% endif %}
-            
+
         </div>
         <div class="col-xs-4">
             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"><p>Edit</p></a>
             <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"><p>Delete</p></a>
-            
+
             {% if loop.index < loop.length %}
-            
+
                 <hr>
-                
+
             {% endif %}
-            
+
         </div>
     </div>
-    
+
 {% endfor %}
 {% endblock %}

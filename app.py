@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import os
 import pymongo
-import pprint
 
 app = Flask(__name__)
 
@@ -29,8 +28,7 @@ categories = ['vegetarian', 'vegan']
 
 def hrs_to_mins(time_hrs):
 
-    """converts time in hours into time in minutes."""
-
+    """Converts time in hours into time in minutes."""
     if time_hrs:
         time_mins = int(time_hrs) * 60
     else:
@@ -41,6 +39,8 @@ def hrs_to_mins(time_hrs):
 def is_admin(f):
     @wraps(f)
     def admin_test(*args, **kwargs):
+
+        """Access control check for admin users."""
         if not g.admin:
             flash("You must be an Admin to access these functions.")
 
@@ -54,6 +54,8 @@ def is_admin(f):
 def is_user(f):
     @wraps(f)
     def user_test(*args, **kwargs):
+
+        """Access control check for users."""
         if not g.user:
             flash("You must be logged in to access these functions.")
 
@@ -70,7 +72,6 @@ def is_user(f):
 def index():
 
     """Home page."""
-
     votes = recipe_coll.find({"authorisation": "allowed"}).sort("votes", pymongo.DESCENDING).limit(4)
 
     return render_template("index.html", votes=votes)
@@ -80,7 +81,6 @@ def index():
 def before_request():
 
     """Sets global user for access control."""
-
     g.user = None
     g.name = None
     g.admin = None
@@ -96,7 +96,6 @@ def before_request():
 def register():
 
     """User registration function."""
-
     if request.method == 'POST':
         email = users_coll.find_one({"email": request.form.get('email')})
         if email:
@@ -125,9 +124,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    """Log in function, adds the user to the session allowing access
-    to the full function set."""
-
+    """Log in function, adds the user/admin to the session."""
     if request.form.get('email') and request.form.get('password'):
         login = users_coll.find_one(
             {'email': request.form.get('email')})
@@ -149,8 +146,7 @@ def login():
 @is_user
 def logout():
 
-    """Log out function, clears the user from the session"""
-
+    """Log out function, clears the user from the session."""
     session.pop('user', None)
     session.pop('type', None)
     g.user = None
@@ -164,9 +160,7 @@ def logout():
 @app.route('/search', methods=['GET', 'POST'])
 def search():
 
-    """Search function, searches on one or more criteria and
-    passes a subset of recipes to searchresults."""
-
+    """Search function, multi-critera search."""
     ingredients = []
     ingredient_list = recipe_coll.distinct("ingredients")
     for ing in ingredient_list:
@@ -183,9 +177,7 @@ def search():
 @app.route('/searchresults', methods=['GET', 'POST'])
 def search_results():
 
-    """Takes the results from the search form and displays the
-    matching recipes."""
-
+    """Displays search form output."""
     allergen_list = []
     type_list = []
     form_data = request.form
@@ -244,17 +236,10 @@ def search_results():
     return render_template("searchresults.html", recipes=recipes)
 
 
-@app.route('/test')
-def test():
-    votes = recipe_coll.find({"authorisation": "allowed"}).sort("votes", pymongo.DESCENDING).limit(4)
-    return render_template("test.html", votes=votes)
-
-
 @app.route('/browse', methods=['GET', 'POST'])
 def browse():
 
     """Display the recipes on individual cards."""
-
     recipes = recipe_coll.find({"authorisation": "allowed"})
     if g.user:
         user = users_coll.find_one({'email': g.user})
@@ -268,7 +253,6 @@ def browse():
 def recipe(recipe_id):
 
     """Display the selected recipe."""
-
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
     the_user = users_coll.find_one({'email': g.user})
 
@@ -280,7 +264,6 @@ def recipe(recipe_id):
 def vote():
 
     """Add a like to the recipe, note user id to disallow multiple likes."""
-
     if request.method == 'POST':
         recipeID = request.form.get('recipeID')
         votes = request.form.get('votes')
@@ -307,7 +290,6 @@ def vote():
 def add_favourite():
 
     """Add a recipe as a favourite."""
-
     if request.method == 'POST':
         recipeID = request.form.get('recipeID')
         users_coll.update(
@@ -320,8 +302,7 @@ def add_favourite():
 @is_user
 def display_favourites():
 
-    """List preset favourites, with link to the recipe(s)."""
-
+    """List preset favourites, with link."""
     user = users_coll.find_one({'email': g.user})
     recipes = recipe_coll.find({"authorisation": "allowed"})
 
@@ -332,8 +313,7 @@ def display_favourites():
 @is_user
 def add_note(recipe_id):
 
-    """Annotates the recipe with user enterd text."""
-
+    """Annotates the recipe with user entered text."""
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
     the_user = users_coll.find_one({'email': g.user})
     rcode = the_recipe["recipe_code"]
@@ -352,25 +332,11 @@ def add_note(recipe_id):
     return render_template('addnote.html', recipe=the_recipe, user=the_user)
 
 
-@app.route('/notes')
-@is_user
-def display_notes():
-
-    """Displays all the users notes."""
-
-    notes = users_coll.find(
-        {"email": g.user},
-        {'notes.content': 1, 'notes.id': 1})
-
-    return render_template("notes.html", notes=notes)
-
-
 @app.route('/addrecipe', methods=['GET', 'POST'])
 @is_user
 def add_recipe():
 
-    """Adds a recipe to the database. Member only area, login required"""
-
+    """Adds a recipe to the database. Member only area, login required."""
     if request.method == 'POST':
 
         ingredient_list = []
@@ -429,8 +395,7 @@ def add_recipe():
 @is_user
 def edit_recipe(recipe_id):
 
-    """Allows editing of recipes that user entered into the database"""
-
+    """Displays recipe for editing."""
     recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
     if g.user == recipe['author'] or g.admin:
         if recipe['prep_time'] != 0:
@@ -459,14 +424,13 @@ def edit_recipe(recipe_id):
 @app.route('/updaterecipe/<recipe_id>', methods=['GET', 'POST'])
 def update_recipe(recipe_id):
 
-    """Allows editing of recipes that user entered into the database"""
-
+    """Updates database with edited recipe."""
     if g.user:
         if request.method == 'POST':
             category = request.form.get('category')
             if category is None:
                 category = "omni"
-            
+
             prep_time1 = request.form.get('prep_time_hrs')
             prep_time2 = request.form.get('prep_time_mins')
             cook_time1 = request.form.get('cook_time_hrs')
@@ -509,7 +473,6 @@ def update_recipe(recipe_id):
 def admin():
 
     """Entry point for admin functions."""
-
     return render_template("admin.html")
 
 
@@ -518,7 +481,6 @@ def admin():
 def recipe_authorisation():
 
     """Display, edit, and authorise, the unauthorised recipes."""
-
     count = recipe_coll.count_documents({"authorisation": "not"})
     if count > 0:
         unauthorised = recipe_coll.find({"authorisation": "not"})
@@ -539,9 +501,7 @@ def recipe_authorisation():
 @is_admin
 def user_authorisation():
 
-    """Displays user details. Allows a user to be set as an admin,
-    removed or user records edited."""
-
+    """Displays user details. """
     users = users_coll.find()
 
     return render_template("userauthorisation.html", users=users)
@@ -552,7 +512,6 @@ def user_authorisation():
 def delete_user(user_id):
 
     """Deletes a user from the users collection."""
-
     users_coll.remove({"_id": ObjectId(user_id)})
     users = users_coll.find()
 
@@ -564,7 +523,6 @@ def delete_user(user_id):
 def make_admin(user_id):
 
     """Sets a user as an admin in the users collection."""
-
     users_coll.update(
         {'_id': ObjectId(user_id)},
         {'$set': {"admin": True}})
@@ -578,7 +536,6 @@ def make_admin(user_id):
 def make_user(user_id):
 
     """Sets a user as an admin in the users collection."""
-
     users_coll.update(
         {'_id': ObjectId(user_id)},
         {'$set': {"admin": False}})
@@ -592,7 +549,6 @@ def make_user(user_id):
 def recipe_overview():
 
     """Overview of recipes."""
-
     authorised = recipe_coll.find({"authorisation": "allowed"})
 
     return render_template("recipeadmin.html", authorised=authorised)
@@ -602,8 +558,7 @@ def recipe_overview():
 @is_admin
 def delete_recipe(recipe_id):
 
-    """Admin funcction to remove recipe from the database"""
-
+    """Admin funcction to remove recipe from the database."""
     recipe_coll.remove({"_id": ObjectId(recipe_id)})
 
 

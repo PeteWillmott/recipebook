@@ -380,9 +380,9 @@ def add_recipe():
             "authorisation": "not",
             "author": request.form.get('author'),
             "summary": request.form.get('summary'),
-            "votes": "0"},
-            {"$push": {"type": [request.form.get('type')],
-            "allergens": [request.form.get('allergen')]}})
+            "type": request.form.getlist('type'),
+            "allergens": request.form.getlist('allergen'),
+            "votes": "0"})
         user = users_coll.find_one({'email': g.user})
         recipes = recipe_coll.find({"authorisation": "allowed"})
 
@@ -441,11 +441,9 @@ def update_recipe(recipe_id):
             cook_time += int(cook_time2)
             total_time = prep_time + cook_time
 
-# db.collection.update({_id: pageId}, {$push: {values: dboVital}, $set: {endTime: time}});
-
-            recipe_coll.update(
-                {'_id': ObjectId(recipe_id)},
-                {'$push': {"type": [request.form.get('type')]}})
+            #recipe_coll.update(
+                #{'_id': ObjectId(recipe_id)},
+                #{'$push': {"type": [request.form.get('type')]}})
                 
             recipe_coll.update(
                 {'_id': ObjectId(recipe_id)},
@@ -458,10 +456,11 @@ def update_recipe(recipe_id):
                     'ingredients': request.form.getlist('ingredient'),
                     'url': request.form.get('url'),
                     'summary': request.form.get('summary'),
-                    'allergens': request.form.get('allergen'),
+                    'allergens': request.form.getlist('allergen'),
                     'instructions': request.form.getlist('instruction'),
                     'spicyness': request.form.get('spicyness', type=int),
-                    'difficulty': request.form.get('difficulty', type=int)}})
+                    'difficulty': request.form.get('difficulty', type=int),
+                    "type": request.form.get('type')}})
             the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
 
         if g.admin:

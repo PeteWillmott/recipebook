@@ -47,19 +47,25 @@
                 </div>
                 
                 <div class="form-group" id="ingredientContainer">
-                    <label for="ingredients">Ingredients (Ingredient, ammount)</label><br>
-                    
+                    <label for="ingredients">
+                        Ingredients (Ingredient, ammount)
+                    </label>
+                    <br>
+
                     {% for ingredients in recipe.ingredients %}
-            
+
                         <input type="text" class="form-control" id="ingredient-{{ loop.index }}" name="ingredient-{{ loop.index }}" value="{{ ingredients }}"><br>
-                    
+
                     {% endfor %}
 
-                    <input type="text" class="form-control  no-submit" id="ingredient" name="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')"><br>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control  no-submit" id="ingredient" name="ingredient" placeholder="Ingredient, ammount" onKeydown="noSubmit('ingredient', 'ingredientContainer')">
+                    <br>
                     <span onclick="addEntry('ingredient', 'ingredientContainer')">
                         <p><i id="more_ingredients" class="fas fa-plus-circle"></i>Click here to add ingredient.</p>
                     </span>
-                    
                 </div>
                 
                 <div class="form-group">

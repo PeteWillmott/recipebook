@@ -270,12 +270,8 @@ def recipe(recipe_id):
     """Display the selected recipe."""
 
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
-    #rcode = the_recipe["recipe_code"]
     the_user = users_coll.find_one({'email': g.user})
-    #note = the_user[str(rcode)]
-    #if note is None:
-        #return render_template('recipe.html', recipe=the_recipe, user=the_user)
-    #else:
+
     return render_template('recipe.html', recipe=the_recipe, user=the_user)
 
 
@@ -339,10 +335,9 @@ def add_note(recipe_id):
     """Annotates the recipe with user enterd text."""
 
     the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
+    the_user = users_coll.find_one({'email': g.user})
     rcode = the_recipe["recipe_code"]
-    notes = users_coll.find_one({'email': g.user})
-    
-    
+
     if request.method == 'POST':
         content = request.form.get('note_content')
         content = str(content)
@@ -350,13 +345,11 @@ def add_note(recipe_id):
             {'email': g.user},
             {'$set':
              {rcode: content}})
-        notes = users_coll.find_one({'email': g.user})
-        note = notes[str(rcode)]
-        
-        return render_template('recipe.html', recipe=the_recipe, user=notes, note=note)
+        the_user = users_coll.find_one({'email': g.user})
 
-    note = notes[str(rcode)]
-    return render_template('addnote.html', recipe=the_recipe, notes=notes)
+        return render_template('recipe.html', recipe=the_recipe, user=the_user)
+
+    return render_template('addnote.html', recipe=the_recipe, user=the_user)
 
 
 @app.route('/notes')
@@ -422,7 +415,8 @@ def add_recipe():
             "spicyness": request.form.get('spicyness', type=int),
             "authorisation": "not",
             "author": request.form.get('author'),
-            "summary": request.form.get('summary'), "votes": "0"})
+            "summary": request.form.get('summary'),
+            "votes": "0"})
         user = users_coll.find_one({'email': g.user})
         recipes = recipe_coll.find({"authorisation": "allowed"})
 
@@ -506,7 +500,8 @@ def update_recipe(recipe_id):
 
             return redirect(url_for('recipe_authorisation'))
 
-        return render_template('recipe.html', recipe=the_recipe)
+        the_user = users_coll.find_one({'email': g.user})
+        return render_template('recipe.html', recipe=the_recipe, user=the_user)
 
 
 @app.route('/admin')

@@ -13,10 +13,10 @@
             
             <div class="form-group">
 
-                {% if note %}
+                {% if user %}
                     <textarea class="form-control" name="note_content" rows="8">
                         
-                        {{ notes.[recipe.recipe_code] }}
+                        {{ user[recipe.recipe_code] }}
                         
                     </textarea>
                     

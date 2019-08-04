@@ -121,114 +121,114 @@ h1, h2, h3, h4, h5, h6, label, button {
 }
 
 h1 {
-  font-size: 10vw;
+  font-size: 9vw;
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
   h1 {
-    font-size: 10vw;
+    font-size: 9vw;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   h1 {
-    font-size: 8vw;
+    font-size: 7vw;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   h1 {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 }
 
 @media (min-width: 1200px) {
   h1 {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 }
 
 h2 {
-  font-size: 8vw;
+  font-size: 78vw;
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
   h2 {
-    font-size: 8vw;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  h2 {
-    font-size: 6vw;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  h2 {
-    font-size: 5vw;
-  }
-}
-
-@media (min-width: 1200px) {
-  h2 {
-    font-size: 5vw;
-  }
-}
-
-h3 {
-  font-size: 7vw;
-}
-
-@media (min-width: 600px) and (max-width: 767px) {
-  h3 {
     font-size: 7vw;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  h3 {
+  h2 {
     font-size: 5vw;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  h3 {
+  h2 {
     font-size: 4vw;
   }
 }
 
 @media (min-width: 1200px) {
-  h3 {
+  h2 {
     font-size: 4vw;
   }
 }
 
-h4 {
+h3 {
   font-size: 6vw;
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
-  h4 {
+  h3 {
     font-size: 6vw;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  h4 {
+  h3 {
     font-size: 4vw;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  h4 {
+  h3 {
     font-size: 3vw;
   }
 }
 
 @media (min-width: 1200px) {
+  h3 {
+    font-size: 3vw;
+  }
+}
+
+h4 {
+  font-size: 5vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  h4 {
+    font-size: 5vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
   h4 {
     font-size: 3vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h4 {
+    font-size: 2vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  h4 {
+    font-size: 2vw;
   }
 }
 
@@ -271,7 +271,7 @@ h4 {
 
 p {
   margin-top: 10px;
-  font-size: 6vw;
+  font-size: 5vw;
 }
 
 @media (min-width: 600px) and (max-width: 767px) {

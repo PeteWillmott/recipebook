@@ -87,11 +87,13 @@
                 <div class="form-group">
                     <label for="allergens" class="warning">Allergens</label><br>
                     
-                    {% for allergen in recipe.allergens %}
-                        
-                        <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen" value="{{ allergen }}" checked> {{ allergen |  title }}
+                    {% if recipe.allergens %}
+                        {% for allergen in recipe.allergens %}
+                            
+                            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen" value="{{ allergen }}" checked> {{ allergen |  title }}
 
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
 
                         <p>-----</p>
 

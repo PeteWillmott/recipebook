@@ -173,6 +173,11 @@ The code was tested and validated and the site manually checked on a range of de
 
 The test results section can be found [here](testing.md).
 
+Despite my reservations about including this information since I have no other way of communicating with the assessor to access admin features properly use the following credentials.
+
+username - pete@email.com
+password - pete123
+
 ## Database
 
 As mentioned in the **UX** and **Technologies Used** sections a MongoDB Atlas database was used. The deatails of the two collections in the database can be found [here](database.md).

@@ -151,19 +151,29 @@ The logic of the app was created in Python with templates written in HTML, style
 ### Libraries
 
 [JQuery](https://jquery.com/) was used to simplify DOM manipulation.
+
 [Bootstrap](https://getbootstrap.com/docs/3.4/) was used to simplify the SCSS.
+
 [Font Aweseome](https://fontawesome.com/) was used for icons.
+
 [Flask](https://flask.palletsprojects.com/en/1.0.x/) was used to render templates.
+
 [Flask PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) and [PyMongo](https://api.mongodb.com/python/current/) were jointly used faciltate communication between Python and MongoDB.
+
 [Google Fonts](https://fonts.google.com/) was used to provide fonts.
 
 ### Tools
 
 [VSCode](https://code.visualstudio.com/) was my IDE after switching from Cloud9.
+
 [PIP](https://pip.pypa.io/en/stable/installing/) was used to install tools.
+
 [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03) was used for version control.
+
 [GitHub](https://github.com/) was used to store the project and make it avvailable remotely.
+
 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) was the database used for this project.
+
 [Balsamic](https://balsamiq.com/) was used for wireframes during the design of this project.
 
 

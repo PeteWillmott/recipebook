@@ -146,7 +146,7 @@ Since the author is displayed with each recipe it might be desirable when time p
 
 ### Languages
 
-The logic of the app was created in Python with templates written in HTML, styled with SCSS and a little JavaScript.
+The logic of the app was created in Python with templates written in HTML, styled with SCSS and a little JavaScript. The compiled CSS file has been minified and the heroku app runs on the minified file, the unminified more human readable file is included for convienience.
 
 ### Libraries
 

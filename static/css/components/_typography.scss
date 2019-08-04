@@ -32,15 +32,15 @@ h1 {
 }
 
 h2 {
-    font-size: 78vw;
+    font-size: 7vw;
     @include large-phone {
-        font-size: 7vw;
+        font-size: 6vw;
         }
         @include tablet {
             font-size: 5vw;
         }
         @include desktop {
-            font-size: 4vw;
+            font-size: 3vw;
         }
         @include large-desktop {
             font-size: 4vw;

@@ -13,13 +13,6 @@
   color: #cc3300 !important;
 }
 
-/*
-* {
-    background: #000 !important;
-    color: #0f0 !important;
-    outline: solid #f00 1px !important;
-  }
-  */
 /* ----- BUTTONS -------------------- */
 .browse-button {
   color: #352e26;
@@ -76,10 +69,6 @@ a {
   text-align: center;
 }
 
-.tab {
-  border: 1px solid #bbae9f;
-}
-
 .padding-10 {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -131,9 +120,145 @@ h1, h2, h3, h4, h5, h6, label, button {
   text-transform: capitalize;
 }
 
+h1 {
+  font-size: 10vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  h1 {
+    font-size: 10vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  h1 {
+    font-size: 8vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h1 {
+    font-size: 6vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 6vw;
+  }
+}
+
+h2 {
+  font-size: 8vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  h2 {
+    font-size: 8vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  h2 {
+    font-size: 6vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h2 {
+    font-size: 5vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  h2 {
+    font-size: 5vw;
+  }
+}
+
+h3 {
+  font-size: 7vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  h3 {
+    font-size: 7vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  h3 {
+    font-size: 5vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h3 {
+    font-size: 4vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  h3 {
+    font-size: 4vw;
+  }
+}
+
+h4 {
+  font-size: 6vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  h4 {
+    font-size: 6vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  h4 {
+    font-size: 4vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h4 {
+    font-size: 3vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  h4 {
+    font-size: 3vw;
+  }
+}
+
 .recipe-title {
-  font-size: 30px;
+  font-size: 7vw;
   text-transform: capitalize;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .recipe-title {
+    font-size: 7vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .recipe-title {
+    font-size: 5vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .recipe-title {
+    font-size: 4vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .recipe-title {
+    font-size: 4vw;
+  }
 }
 
 .recipe-text {
@@ -146,6 +271,31 @@ h1, h2, h3, h4, h5, h6, label, button {
 
 p {
   margin-top: 10px;
+  font-size: 6vw;
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  p {
+    font-size: 4vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  p {
+    font-size: 2vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  p {
+    font-size: 2vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  p {
+    font-size: 1.5vw;
+  }
 }
 
 ::-webkit-input-placeholder {
@@ -342,17 +492,8 @@ input[type=submit] {
   border: none;
 }
 
-/*----- ADMIN AREA ACCORDIAN ----------------------------*/
-.accordian-authorisation {
-  display: block;
-}
-
-.accordian-users {
-  display: none;
-}
-
-.accordian-recipes {
-  display: none;
+.nav-link:hover {
+  background-color: #53483b;
 }
 
 .alpha-fade {

@@ -15,14 +15,90 @@ h1, h2, h3, h4, h5, h6, label, button {
     text-transform: capitalize;
 }
 
+h1 {
+    font-size: 10vw;
+    @include large-phone {
+        font-size: 10vw;
+        }
+        @include tablet {
+            font-size: 8vw;
+        }
+        @include desktop {
+            font-size: 6vw;
+        }
+        @include large-desktop {
+            font-size: 6vw;
+        }
+}
+
+h2 {
+    font-size: 8vw;
+    @include large-phone {
+        font-size: 8vw;
+        }
+        @include tablet {
+            font-size: 6vw;
+        }
+        @include desktop {
+            font-size: 5vw;
+        }
+        @include large-desktop {
+            font-size: 5vw;
+        }
+}
+
+h3 {
+    font-size: 7vw;
+    @include large-phone {
+        font-size: 7vw;
+        }
+        @include tablet {
+            font-size: 5vw;
+        }
+        @include desktop {
+            font-size: 4vw;
+        }
+        @include large-desktop {
+            font-size: 4vw;
+        }
+}
+
+h4 {
+    font-size: 6vw;
+    @include large-phone {
+        font-size: 6vw;
+        }
+        @include tablet {
+            font-size: 4vw;
+        }
+        @include desktop {
+            font-size: 3vw;
+        }
+        @include large-desktop {
+            font-size: 3vw;
+        }
+}
+
 .page-title {
     @extend %title-font;
 }
 
 .recipe-title {
     @extend %body-font;
-    font-size: 30px;
+    font-size: 7vw;
     text-transform: capitalize;
+    @include large-phone {
+        font-size: 7vw;
+        }
+        @include tablet {
+            font-size: 5vw;
+        }
+        @include desktop {
+            font-size: 4vw;
+        }
+        @include large-desktop {
+            font-size: 4vw;
+        }
 }
 
 .recipe-text {
@@ -36,16 +112,29 @@ h1, h2, h3, h4, h5, h6, label, button {
 }
 
 span, p {
-   @extend %body-font;
+    @extend %body-font;
 }
 
 p {
     margin-top: 10px;
+    font-size: 6vw;
+    @include large-phone {
+        font-size: 4vw;
+        }
+        @include tablet {
+            font-size: 2vw;
+        }
+        @include desktop {
+            font-size: 2vw;
+        }
+        @include large-desktop {
+            font-size: 1.5vw;
+        }
 }
 
 ::placeholder {
-  @extend %body-font;
-  color: $ink;
+    @extend %body-font;
+    color: $ink;
 }
 
 .title-case {
@@ -57,11 +146,11 @@ p {
 }
 
 .sentence-case {
-  text-transform: lowercase;
+    text-transform: lowercase;
   
-	&:first-letter {
-		text-transform: capitalize;
-	}
+        &:first-letter {
+            text-transform: capitalize;
+        }
 }
 
 .inline {

@@ -9,7 +9,7 @@
 }
 
 .navbar-toggle {
-   margin-top: 18px;
+    margin-top: 18px;
 }
 
 .navbar-default .navbar-brand {
@@ -38,4 +38,8 @@
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border: none;
+}
+
+.nav-link:hover {
+    background-color: lighten( $ink, 10% );
 }

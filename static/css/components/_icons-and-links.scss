@@ -1,14 +1,14 @@
 %link {
-  text-decoration: none;
-  font-family: Raleway, sans-serif;
-  &:hover {
     text-decoration: none;
-  }
+    font-family: Raleway, sans-serif;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 a {
-  @extend %link;
-  color: $ink;
+    @extend %link;
+    color: $ink;
 }
 
 .facebook {

@@ -72,7 +72,9 @@ def is_user(f):
 def index():
 
     """Home page."""
-    votes = recipe_coll.find({"authorisation": "allowed"}).sort("votes", pymongo.DESCENDING).limit(4)
+    votes = recipe_coll.find({
+        "authorisation": "allowed"}).sort(
+            "votes", pymongo.DESCENDING).limit(4)
 
     return render_template("index.html", votes=votes)
 
@@ -233,7 +235,12 @@ def search_results():
              "difficulty": difficulty,
              "total_time": {'$lte': time}})
 
-    return render_template("searchresults.html", recipes=recipes, recipe_type=recipe_type, cat_list=cat_list, allergen_list=allergen_list, type_list=type_list)
+    return render_template("searchresults.html",
+                           recipes=recipes,
+                           recipe_type=recipe_type,
+                           cat_list=cat_list,
+                           allergen_list=allergen_list,
+                           type_list=type_list)
 
 
 @app.route('/browse', methods=['GET', 'POST'])

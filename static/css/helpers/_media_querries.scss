@@ -4,7 +4,7 @@ $desktop: 992px;
 $large-desktop: 1200px;
 
 @mixin small-phone {
-    @media (max-width: $phone) {
+    @media (max-width: $phone - 1px) {
         @content;
     }
 }

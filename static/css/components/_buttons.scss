@@ -1,12 +1,12 @@
 /* ----- BUTTONS -------------------- */
 
 @mixin hover-darken($colour, $background_colour) {
-  color: $colour;
-  background-color: $background_colour;
-  border-style: none;
-   &:hover {
-    background-color: darken( $background_colour, 10 );
-  }
+    color: $colour;
+    background-color: $background_colour;
+    border-style: none;
+    &:hover {
+      background-color: darken( $background_colour, 10 );
+    }
 }
 
 

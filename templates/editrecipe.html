@@ -17,21 +17,32 @@
                 </div>
                 
                 <div class="form-group">
-                    {% for type in types %}
-                        {% if type == recipe.type %}
-                            <input type="checkbox" id="type-{{ loop.index }}" name="type-{{ loop.index }}" value="{{ type }}"checked>{{ type | title }}
-                        {% else %}
-                            <input type="checkbox" id="type-{{ loop.index }}" name="type-{{ loop.index }}" value="{{ type }}">{{ type | title }}
-                        {% endif %}
+
+                    {% for type in recipe.type %}
+
+                        <input type="checkbox" id="type-{{ loop.index }}" name="type" value="{{ type }}"checked>{{ type | title }}
+
                     {% endfor %}
+
+                    <p>-----</p>
+
+                    {% for type in types %}
+
+                        <input type="checkbox" id="type-{{ loop.index }}" name="type" value="{{ type }}">{{ type | title }}
+
+                    {% endfor %}
+
+                    <p>-----</p>
                     
                     {% for cat in categories %}
                         {% if cat == recipe.category %}
-                            <input type="radio" id="category-{{ loop.index }}" name="category-{{ loop.index }}" value="{{ cat }}"checked>{{cat | title }}
+                            <input type="radio" id="category-{{ loop.index }}" name="category" value="{{ cat }}"checked>{{cat | title }}
                         {% else %}
-                            <input type="radio" id="category-{{ loop.index }}" name="category-{{ loop.index }}" value="{{ cat }}">{{cat | title }}
+                            <input type="radio" id="category-{{ loop.index }}" name="category" value="{{ cat }}">{{cat | title }}
                         {% endif %}
                     {% endfor %}
+
+                            <input type="radio" id="category-3" name="category" value="omni">Contains meat
                     
                 </div>
                 
@@ -54,7 +65,7 @@
 
                     {% for ingredients in recipe.ingredients %}
 
-                        <input type="text" class="form-control" id="ingredient-{{ loop.index }}" name="ingredient-{{ loop.index }}" value="{{ ingredients }}"><br>
+                        <input type="text" class="form-control" id="ingredient-{{ loop.index }}" name="ingredient" value="{{ ingredients }}"><br>
 
                     {% endfor %}
 
@@ -76,17 +87,20 @@
                 <div class="form-group">
                     <label for="allergens" class="warning">Allergens</label><br>
                     
-                    {% for allergen in allergens %}
-                        {% if allergen == recipe.allergens %}
+                    {% for allergen in recipe.allergens %}
                         
-                            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen-{{ loop.index }}" value="{{ allergen }}" checked> {{ allergen |  title }} <br>
+                        <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen" value="{{ allergen }}" checked> {{ allergen |  title }}
 
-                        {% else %}
-
-                            <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen-{{ loop.index }}" value="{{ allergen }}"> {{ allergen |  title }} <br>
-                    
-                         {% endif %}
                     {% endfor %}
+
+                        <p>-----</p>
+
+                    {% for allergen in allergens %}
+
+                        <input type="checkbox" id="allergen-{{ loop.index }}" name="allergen" value="{{ allergen }}"> {{ allergen |  title }} <br>
+                    
+                    {% endfor %}
+                    
 
                 </div>
 
@@ -96,7 +110,7 @@
                     {% if recipe.ingredients %}
                         {% for instructions in recipe.instructions %}
 
-                            <input type="text" class="form-control" id="instruction-{{ loop.index }}" name="instruction-{{ loop.index }}" value="{{ instructions }}"><br>
+                            <input type="text" class="form-control" id="instruction-{{ loop.index }}" name="instruction" value="{{ instructions }}"><br>
 
                         {% endfor %}
 

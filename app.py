@@ -412,6 +412,7 @@ def edit_recipe(recipe_id):
             cook_mins = 0
         return render_template("editrecipe.html", recipe=recipe,
                                allergens=allergens, types=types,
+                               categories=categories,
                                prep_hrs=prep_hrs, prep_mins=prep_mins,
                                cook_hrs=cook_hrs, cook_mins=cook_mins)
 
@@ -441,10 +442,6 @@ def update_recipe(recipe_id):
             cook_time += int(cook_time2)
             total_time = prep_time + cook_time
 
-            #recipe_coll.update(
-                #{'_id': ObjectId(recipe_id)},
-                #{'$push': {"type": [request.form.get('type')]}})
-                
             recipe_coll.update(
                 {'_id': ObjectId(recipe_id)},
                 {'$set': {
@@ -460,7 +457,7 @@ def update_recipe(recipe_id):
                     'instructions': request.form.getlist('instruction'),
                     'spicyness': request.form.get('spicyness', type=int),
                     'difficulty': request.form.get('difficulty', type=int),
-                    "type": request.form.get('type')}})
+                    "type": request.form.getlist('type')}})
             the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
 
         if g.admin:

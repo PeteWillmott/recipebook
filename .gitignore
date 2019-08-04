@@ -11,6 +11,5 @@ txt/
 __pycache__
 .vscode
 app.pyc
-.pytest_cache/v/cache
-test_unittest.py
+
 

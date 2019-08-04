@@ -457,6 +457,7 @@ def update_recipe(recipe_id):
                     'instructions': request.form.getlist('instruction'),
                     'spicyness': request.form.get('spicyness', type=int),
                     'difficulty': request.form.get('difficulty', type=int),
+                    "authorisation": request.form.get('authorised'),
                     "type": request.form.getlist('type')}})
             the_recipe = recipe_coll.find_one({"_id": ObjectId(recipe_id)})
 
@@ -473,6 +474,7 @@ def update_recipe(recipe_id):
 def admin():
 
     """Entry point for admin functions."""
+
     return render_template("admin.html")
 
 
@@ -560,6 +562,8 @@ def delete_recipe(recipe_id):
 
     """Admin funcction to remove recipe from the database."""
     recipe_coll.remove({"_id": ObjectId(recipe_id)})
+
+    return render_template("admin.html")
 
 
 if __name__ == '__main__':
